@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drone Generator - Ambient Drone Sounds for Meditation, Sleep & Focus</title>
+    <meta name="description" content="Free online drone generator with layered oscillators. Create ambient drones for meditation, sleep, focus, and relaxation. Multiple drone types, filters, and reverb.">
+    <meta name="keywords" content="drone generator, ambient drone, meditation sounds, sleep drone, focus music, oscillator, synthesizer, ambient music">
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="page-header">
+            <div class="header-content">
+                <h1>Drone Generator</h1>
+                <p class="tagline">Ambient drone sounds for meditation, sleep, and focus</p>
+            </div>
+            <div class="header-badges">
+                <span class="header-badge"><i class="ri-mental-health-line"></i> Meditation</span>
+                <span class="header-badge"><i class="ri-moon-line"></i> Sleep</span>
+                <span class="header-badge"><i class="ri-focus-3-line"></i> Focus</span>
+            </div>
+        </header>
+
+        <nav class="mini-nav">
+            <a href="#generator" class="nav-link"><i class="ri-sound-module-line"></i> Generator</a>
+            <a href="#controls" class="nav-link"><i class="ri-equalizer-line"></i> Controls</a>
+            <a href="#effects" class="nav-link"><i class="ri-settings-4-line"></i> Effects</a>
+            <a href="#about-drones" class="nav-link"><i class="ri-question-line"></i> About</a>
+        </nav>
+
+        <div class="main-controls" id="generator">
+            <!-- Presets -->
+            <div class="presets">
+                <div class="preset-group">
+                    <h3>Presets</h3>
+                    <div class="preset-buttons">
+                        <button class="preset-btn" data-preset="meditation">
+                            <i class="ri-mental-health-line"></i> Meditation
+                        </button>
+                        <button class="preset-btn" data-preset="sleep">
+                            <i class="ri-moon-line"></i> Sleep
+                        </button>
+                        <button class="preset-btn" data-preset="focus">
+                            <i class="ri-focus-3-line"></i> Focus
+                        </button>
+                        <button class="preset-btn" data-preset="cinematic">
+                            <i class="ri-film-line"></i> Cinematic
+                        </button>
+                    </div>
+                </div>
+                <div class="preset-group">
+                    <h3>Root Note</h3>
+                    <div class="note-selector">
+                        <select id="rootNote">
+                            <option value="C2">C2</option>
+                            <option value="D2">D2</option>
+                            <option value="E2">E2</option>
+                            <option value="F2">F2</option>
+                            <option value="G2">G2</option>
+                            <option value="A2">A2</option>
+                            <option value="B2">B2</option>
+                            <option value="C3" selected>C3</option>
+                            <option value="D3">D3</option>
+                            <option value="E3">E3</option>
+                            <option value="F3">F3</option>
+                            <option value="G3">G3</option>
+                            <option value="A3">A3</option>
+                            <option value="B3">B3</option>
+                            <option value="C4">C4</option>
+                            <option value="D4">D4</option>
+                            <option value="E4">E4</option>
+                        </select>
+                        <div class="drone-type-selector">
+                            <label>Drone Type</label>
+                            <select id="droneType">
+                                <option value="pure">Pure (Single)</option>
+                                <option value="fifth" selected>Fifth</option>
+                                <option value="octave">Octave</option>
+                                <option value="major">Major Chord</option>
+                                <option value="minor">Minor Chord</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Status -->
+            <div class="status-badge ready" id="statusBadge">
+                <span class="status-icon"></span>
+                <span class="status-text">Ready</span>
+            </div>
+
+            <!-- Play Button -->
+            <div class="action-buttons">
+                <button id="playButton" class="primary-btn">
+                    <i class="ri-play-fill"></i>
+                    <span>Play</span>
+                </button>
+            </div>
+
+            <!-- Waveform Visualization -->
+            <div class="waveform-container">
+                <div class="waveform-header">
+                    <span class="waveform-title">Waveform</span>
+                    <span class="waveform-note" id="currentNote">C3</span>
+                </div>
+                <canvas id="waveformCanvas"></canvas>
+            </div>
+        </div>
+
+        <!-- Main Controls -->
+        <div class="controls" id="controls">
+            <div class="control-group oscillator-controls">
+                <h3>Oscillators</h3>
+
+                <div class="osc-channel">
+                    <label for="osc1Level">
+                        <span class="osc-label">Oscillator 1 (Sine)</span>
+                        <span class="osc-desc">Pure, fundamental tone</span>
+                    </label>
+                    <input type="range" id="osc1Level" min="0" max="100" value="70">
+                    <span class="value" id="osc1Value">70%</span>
+                </div>
+
+                <div class="osc-channel">
+                    <label for="osc2Level">
+                        <span class="osc-label">Oscillator 2 (Triangle)</span>
+                        <span class="osc-desc">Warm, slightly brighter</span>
+                    </label>
+                    <input type="range" id="osc2Level" min="0" max="100" value="30">
+                    <span class="value" id="osc2Value">30%</span>
+                </div>
+
+                <div class="osc-channel">
+                    <label for="osc3Level">
+                        <span class="osc-label">Oscillator 3 (Sawtooth)</span>
+                        <span class="osc-desc">Rich in harmonics</span>
+                    </label>
+                    <input type="range" id="osc3Level" min="0" max="100" value="0">
+                    <span class="value" id="osc3Value">0%</span>
+                </div>
+
+                <label for="detune">Detune / Chorus</label>
+                <input type="range" id="detune" min="0" max="50" value="5">
+                <span class="value" id="detuneValue">5 cents</span>
+            </div>
+
+            <div class="control-group">
+                <h3>Volume & Timer</h3>
+
+                <label for="volume">Master Volume</label>
+                <input type="range" id="volume" min="0" max="100" value="50">
+                <span class="value" id="volumeValue">50%</span>
+
+                <label for="fadeTime">Fade In/Out</label>
+                <input type="range" id="fadeTime" min="0" max="30" value="5">
+                <span class="value" id="fadeTimeValue">5 sec</span>
+
+                <label>Sleep Timer</label>
+                <div class="timer-buttons">
+                    <button class="timer-btn" data-time="0">Off</button>
+                    <button class="timer-btn" data-time="15">15m</button>
+                    <button class="timer-btn" data-time="30">30m</button>
+                    <button class="timer-btn" data-time="60">1h</button>
+                    <button class="timer-btn" data-time="120">2h</button>
+                </div>
+                <div class="timer-display" id="timerDisplay">
+                    <span class="timer-label">Time remaining:</span>
+                    <span class="timer-value" id="timerValue">--:--</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Effects Controls -->
+        <div class="controls effects-controls" id="effects">
+            <div class="control-group">
+                <h3>Filter</h3>
+
+                <label for="filterFreq">Lowpass Frequency</label>
+                <input type="range" id="filterFreq" min="100" max="10000" value="2000">
+                <span class="value" id="filterFreqValue">2000 Hz</span>
+
+                <label for="filterRes">Resonance</label>
+                <input type="range" id="filterRes" min="0" max="20" value="1">
+                <span class="value" id="filterResValue">1</span>
+            </div>
+
+            <div class="control-group">
+                <h3>Space & Movement</h3>
+
+                <label for="reverbAmount">Reverb / Space</label>
+                <input type="range" id="reverbAmount" min="0" max="100" value="30">
+                <span class="value" id="reverbValue">30%</span>
+
+                <label for="lfoRate">LFO Rate</label>
+                <input type="range" id="lfoRate" min="1" max="100" value="10">
+                <span class="value" id="lfoRateValue">0.1 Hz</span>
+
+                <label for="lfoDepth">LFO Depth</label>
+                <input type="range" id="lfoDepth" min="0" max="100" value="10">
+                <span class="value" id="lfoDepthValue">10%</span>
+            </div>
+        </div>
+
+        <!-- Educational Content -->
+        <section class="content-section" id="about-drones">
+            <article class="content-article">
+                <h2>About Drone Sounds</h2>
+                <p class="intro-text">Drone music is characterized by sustained tones or repeated sounds that create a continuous, hypnotic soundscape. Used for thousands of years in meditation, religious ceremonies, and traditional music, drones help induce altered states of consciousness and deep relaxation.</p>
+
+                <h3>What is a Drone?</h3>
+                <p>A drone is a sustained musical tone or sound that serves as a foundation for melody or harmony. Unlike rhythmic music, drones emphasize stasis and continuity. The subtle variations in pitch, timbre, and overtones create a rich sonic texture that can be both grounding and transcendent.</p>
+
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h4><i class="ri-mental-health-line"></i> Meditation & Mindfulness</h4>
+                        <p>Drone sounds have been used in meditation practices for millennia. The steady, continuous tone helps quiet the mind and provides a focal point for attention. Many practitioners find drones more effective than silence for achieving deep meditative states.</p>
+                        <p class="noise-specs"><strong>Best settings:</strong> Low root note, pure or fifth drone, minimal filter, gentle LFO</p>
+                    </div>
+
+                    <div class="info-card">
+                        <h4><i class="ri-moon-line"></i> Sleep & Relaxation</h4>
+                        <p>Low-frequency drones can promote deep relaxation and help with sleep. The predictable, non-jarring nature of drone sounds allows the nervous system to settle into a parasympathetic state. Many people find drones more soothing than other ambient sounds.</p>
+                        <p class="noise-specs"><strong>Best settings:</strong> C2 or D2 root, octave drone, heavy filter, more reverb</p>
+                    </div>
+
+                    <div class="info-card">
+                        <h4><i class="ri-focus-3-line"></i> Focus & Concentration</h4>
+                        <p>Moderate drones can enhance focus by masking distracting sounds while providing a non-intrusive audio environment. The brain habituates to the consistent sound, allowing deeper concentration on tasks requiring sustained attention.</p>
+                        <p class="noise-specs"><strong>Best settings:</strong> C3 or A3 root, fifth drone, moderate filter, subtle movement</p>
+                    </div>
+                </div>
+
+                <h3>Understanding Drone Types</h3>
+                <ul class="feature-list">
+                    <li><strong>Pure (Single):</strong> A single sustained note. The simplest form, focusing attention on one frequency and its natural overtones</li>
+                    <li><strong>Fifth:</strong> Root note plus its perfect fifth (3:2 ratio). One of the most consonant intervals, used in Gregorian chant and Indian classical music</li>
+                    <li><strong>Octave:</strong> Root note doubled at the octave above. Creates a fuller, richer sound while maintaining harmonic simplicity</li>
+                    <li><strong>Major Chord:</strong> Root, major third, and fifth. Produces a bright, uplifting drone character</li>
+                    <li><strong>Minor Chord:</strong> Root, minor third, and fifth. Creates a more introspective, contemplative atmosphere</li>
+                </ul>
+
+                <h3>The Science of Drone Effects</h3>
+                <p>Research into the effects of sustained tones on consciousness reveals several interesting findings:</p>
+
+                <ul class="feature-list">
+                    <li><strong>Brainwave Entrainment:</strong> Steady tones can influence brainwave patterns, potentially guiding the brain toward alpha (relaxation) or theta (meditation) states</li>
+                    <li><strong>Vagal Tone:</strong> Low-frequency sounds may stimulate the vagus nerve, promoting parasympathetic activation and stress reduction</li>
+                    <li><strong>Auditory Masking:</strong> Continuous tones mask environmental sounds that might otherwise cause stress or distraction</li>
+                    <li><strong>Attention Anchoring:</strong> A stable auditory reference point can help anchor attention during meditation or focused work</li>
+                    <li><strong>Harmonic Resonance:</strong> Certain intervals and frequencies are believed to resonate with the body's natural frequencies, though scientific evidence is limited</li>
+                </ul>
+
+                <h3>Traditional Uses of Drone Music</h3>
+                <p>Drones appear in many world music traditions:</p>
+
+                <ul class="feature-list">
+                    <li><strong>Indian Classical:</strong> The tanpura provides a continuous drone underlying raga performances, creating a harmonic bed for melodic exploration</li>
+                    <li><strong>Tibetan Buddhism:</strong> Deep vocal overtone singing and horn drones accompany meditation and ritual practices</li>
+                    <li><strong>Scottish Bagpipes:</strong> The drone pipes provide sustained notes while the chanter plays melody</li>
+                    <li><strong>Gregorian Chant:</strong> Early polyphonic music often featured drone voices supporting melodic lines</li>
+                    <li><strong>Didgeridoo:</strong> Australian Aboriginal instrument producing continuous drone through circular breathing</li>
+                </ul>
+
+                <h3>Tips for Using Drone Generator</h3>
+                <ul class="feature-list">
+                    <li><strong>Start Low:</strong> Begin with lower root notes for relaxation and sleep; higher notes for alert focus</li>
+                    <li><strong>Add Movement Gradually:</strong> Start with static drones and slowly introduce LFO modulation for interest</li>
+                    <li><strong>Use Headphones:</strong> Headphones reveal subtle details and stereo effects that speakers may miss</li>
+                    <li><strong>Combine with Breathing:</strong> Sync your breath to the drone's subtle movements for deeper meditation</li>
+                    <li><strong>Experiment with Duration:</strong> Drones often need 10-15 minutes to produce full effects; be patient</li>
+                    <li><strong>Keep Volume Moderate:</strong> Drones should be present but not overwhelming; lower volumes work better for extended listening</li>
+                </ul>
+            </article>
+        </section>
+
+        <footer class="site-footer">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="footer-logo">Drone Generator</span>
+                    <p>Free online ambient drone generator for meditation, sleep, focus, and relaxation. Create rich, layered drone sounds with multiple oscillators.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <a href="#generator">Generator</a>
+                    <a href="#controls">Controls</a>
+                    <a href="#about-drones">About Drones</a>
+                </div>
+                <div class="footer-related">
+                    <h4>Related Tools</h4>
+                    <a href="https://noisegenerator.com" target="_blank">Noise Generator</a>
+                    <a href="https://sirengenerator.com" target="_blank">Siren Generator</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Part of the Audio Tools Network. For educational and personal use.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/drone.js') }}"></script>
+</body>
+</html>
