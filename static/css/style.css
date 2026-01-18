@@ -271,6 +271,176 @@ body {
     margin-bottom: 0.375rem;
 }
 
+/* Tuning Options */
+.tuning-options {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.tuning-row {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.tuning-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.tuning-item label {
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.tuning-item select {
+    padding: 0.5rem 0.875rem;
+    background: var(--surface-raised);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    font-size: 0.8125rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.tuning-item select:hover {
+    border-color: var(--primary);
+}
+
+.tuning-item select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+}
+
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.checkbox-label input[type="checkbox"] {
+    display: none;
+}
+
+.checkbox-label .checkmark {
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--border);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.checkbox-label input[type="checkbox"]:checked + .checkmark {
+    background: var(--primary);
+    border-color: var(--primary);
+}
+
+.checkbox-label input[type="checkbox"]:checked + .checkmark::after {
+    content: '';
+    width: 5px;
+    height: 9px;
+    border: solid #000;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    margin-bottom: 2px;
+}
+
+.checkbox-label:hover .checkmark {
+    border-color: var(--primary);
+}
+
+.tuning-help {
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface-raised);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    font-size: 0.6875rem;
+    color: var(--text-muted);
+    cursor: help;
+    transition: all 0.2s ease;
+}
+
+.tuning-help:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: #000;
+}
+
+/* Evolution Controls */
+.evolution-controls {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.evolution-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.evolution-toggle {
+    font-weight: 600;
+    color: var(--text);
+}
+
+.evolution-desc {
+    flex: 1;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    min-width: 150px;
+}
+
+.evolution-speed {
+    padding: 0.375rem 0.75rem;
+    background: var(--surface-raised);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    font-size: 0.8125rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.evolution-speed:hover {
+    border-color: var(--primary);
+}
+
+.evolution-speed:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+}
+
 /* Status Badge */
 .status-badge {
     display: inline-flex;

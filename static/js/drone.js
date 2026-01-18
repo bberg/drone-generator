@@ -1,6 +1,7 @@
 /**
  * Drone Generator - Web Audio API Implementation
  * Generates ambient drone sounds using multiple layered oscillators
+ * Features: Multiple drone types, tuning systems, evolution mode, and presets
  */
 
 class DroneGenerator {
@@ -25,16 +26,42 @@ class DroneGenerator {
         // Oscillator groups for each voice
         this.voices = [];
 
-        // Note frequencies (A4 = 440Hz standard tuning)
-        this.noteFrequencies = {
-            'C2': 65.41, 'D2': 73.42, 'E2': 82.41, 'F2': 87.31, 'G2': 98.00, 'A2': 110.00, 'B2': 123.47,
-            'C3': 130.81, 'D3': 146.83, 'E3': 164.81, 'F3': 174.61, 'G3': 196.00, 'A3': 220.00, 'B3': 246.94,
-            'C4': 261.63, 'D4': 293.66, 'E4': 329.63
+        // Tuning systems
+        this.tunings = {
+            'standard': 440,      // A4 = 440 Hz (modern standard)
+            'verdi': 432,         // A4 = 432 Hz (Verdi tuning)
+            'baroque': 415,       // A4 = 415 Hz (Baroque pitch)
+            'scientific': 430.54  // A4 based on C4 = 256 Hz (Scientific pitch)
         };
+
+        // Solfeggio frequencies (as root notes, not A4 references)
+        this.solfeggioFrequencies = {
+            '174': 174,    // Pain relief
+            '285': 285,    // Tissue healing
+            '396': 396,    // Liberation from fear
+            '417': 417,    // Facilitating change
+            '528': 528,    // Transformation (Love frequency)
+            '639': 639,    // Connecting relationships
+            '741': 741,    // Awakening intuition
+            '852': 852,    // Spiritual order
+            '963': 963     // Higher consciousness
+        };
+
+        // Current tuning reference
+        this.currentTuning = 'standard';
+
+        // Base note frequencies calculated from A4 reference
+        this.noteFrequencies = this.calculateNoteFrequencies(440);
 
         this.isPlaying = false;
         this.timerInterval = null;
         this.timerRemaining = 0;
+
+        // Evolution mode
+        this.evolutionEnabled = false;
+        this.evolutionSpeed = 'medium';
+        this.evolutionInterval = null;
+        this.evolutionTargets = {};
 
         // Settings
         this.settings = {
@@ -50,7 +77,10 @@ class DroneGenerator {
             filterRes: 1,
             reverbAmount: 0.3,
             lfoRate: 0.1,
-            lfoDepth: 0.1
+            lfoDepth: 0.1,
+            tuning: 'standard',
+            evolution: false,
+            evolutionSpeed: 'medium'
         };
 
         // Visualization
@@ -59,6 +89,31 @@ class DroneGenerator {
         this.animationId = null;
 
         this.init();
+    }
+
+    calculateNoteFrequencies(a4Reference) {
+        // Calculate all note frequencies based on A4 reference
+        const notes = {};
+        const noteNames = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+
+        // A4 is the 49th key on a piano, middle C (C4) is key 40
+        // Formula: freq = a4Reference * 2^((n-49)/12) where n is the piano key number
+
+        for (let octave = 1; octave <= 5; octave++) {
+            noteNames.forEach((note, index) => {
+                // Calculate semitones from A4
+                const semitones = (octave - 4) * 12 + (index - 9); // -9 because A is at index 9
+                const freq = a4Reference * Math.pow(2, semitones / 12);
+                const noteName = note + octave;
+
+                // Only include notes we want
+                if (octave >= 2 && octave <= 4 && !note.includes('#')) {
+                    notes[noteName] = freq;
+                }
+            });
+        }
+
+        return notes;
     }
 
     init() {
@@ -83,7 +138,7 @@ class DroneGenerator {
         this.lfo.frequency.value = this.settings.lfoRate;
 
         this.lfoGain = this.audioContext.createGain();
-        this.lfoGain.gain.value = this.settings.lfoDepth * 10; // Scale for filter modulation
+        this.lfoGain.gain.value = this.settings.lfoDepth * 10;
 
         this.lfo.connect(this.lfoGain);
         this.lfoGain.connect(this.lowpassFilter.frequency);
@@ -100,7 +155,7 @@ class DroneGenerator {
         this.analyser = this.audioContext.createAnalyser();
         this.analyser.fftSize = 2048;
 
-        // Signal chain: voices -> lowpassFilter -> dry/wet mix -> analyser -> destination
+        // Signal chain
         this.lowpassFilter.connect(this.dryGain);
         this.lowpassFilter.connect(this.delays[0]);
 
@@ -112,14 +167,12 @@ class DroneGenerator {
     }
 
     createReverb() {
-        // Simple delay-based reverb
         this.dryGain = this.audioContext.createGain();
         this.dryGain.gain.value = 1 - this.settings.reverbAmount;
 
         this.reverbGain = this.audioContext.createGain();
         this.reverbGain.gain.value = this.settings.reverbAmount;
 
-        // Create multiple delay lines for richer reverb
         const delayTimes = [0.03, 0.05, 0.07, 0.11, 0.13];
         const feedbackAmounts = [0.5, 0.4, 0.35, 0.3, 0.25];
 
@@ -132,19 +185,14 @@ class DroneGenerator {
             const feedback = this.audioContext.createGain();
             feedback.gain.value = feedbackAmounts[i];
 
-            // Create feedback loop
             delay.connect(feedback);
             feedback.connect(delay);
-
-            // Connect to reverb output
             delay.connect(this.reverbGain);
 
             this.delays.push(delay);
             this.feedbacks.push(feedback);
 
-            if (i === 0) {
-                // First delay receives from filter
-            } else if (lastNode) {
+            if (lastNode) {
                 lastNode.connect(delay);
             }
             lastNode = delay;
@@ -152,14 +200,21 @@ class DroneGenerator {
     }
 
     createVoices() {
-        // Clear existing voices
         this.stopVoices();
         this.voices = [];
 
-        const rootFreq = this.noteFrequencies[this.settings.rootNote];
+        let rootFreq;
+
+        // Check if using Solfeggio frequency
+        if (this.settings.rootNote.startsWith('solfeggio_')) {
+            const freqKey = this.settings.rootNote.replace('solfeggio_', '');
+            rootFreq = this.solfeggioFrequencies[freqKey];
+        } else {
+            rootFreq = this.noteFrequencies[this.settings.rootNote];
+        }
+
         const frequencies = this.getDroneFrequencies(rootFreq);
 
-        // Create oscillator groups for each frequency
         frequencies.forEach((freq, index) => {
             const voice = this.createVoice(freq, index);
             this.voices.push(voice);
@@ -168,18 +223,61 @@ class DroneGenerator {
 
     getDroneFrequencies(rootFreq) {
         const type = this.settings.droneType;
+        const useJust = document.getElementById('justIntonation')?.checked || false;
+
+        // Just intonation ratios (pure mathematical ratios)
+        const justRatios = {
+            fifth: 3/2,
+            majorThird: 5/4,
+            minorThird: 6/5,
+            fourth: 4/3,
+            majorSecond: 9/8,
+            minorSecond: 16/15
+        };
+
+        // Equal temperament ratios (12-TET)
+        const equalRatios = {
+            fifth: Math.pow(2, 7/12),      // ~1.498
+            majorThird: Math.pow(2, 4/12),  // ~1.260
+            minorThird: Math.pow(2, 3/12),  // ~1.189
+            fourth: Math.pow(2, 5/12),      // ~1.335
+            majorSecond: Math.pow(2, 2/12), // ~1.122
+            minorSecond: Math.pow(2, 1/12)  // ~1.059
+        };
+
+        const ratios = useJust ? justRatios : equalRatios;
 
         switch (type) {
             case 'pure':
                 return [rootFreq];
             case 'fifth':
-                return [rootFreq, rootFreq * 1.5]; // Perfect fifth (3:2 ratio)
+                return [rootFreq, rootFreq * ratios.fifth];
             case 'octave':
-                return [rootFreq, rootFreq * 2]; // Octave
+                return [rootFreq, rootFreq * 2];
             case 'major':
-                return [rootFreq, rootFreq * 1.25, rootFreq * 1.5]; // Major chord (root, major 3rd, 5th)
+                return [rootFreq, rootFreq * ratios.majorThird, rootFreq * ratios.fifth];
             case 'minor':
-                return [rootFreq, rootFreq * 1.2, rootFreq * 1.5]; // Minor chord (root, minor 3rd, 5th)
+                return [rootFreq, rootFreq * ratios.minorThird, rootFreq * ratios.fifth];
+            case 'sus2':
+                return [rootFreq, rootFreq * ratios.majorSecond, rootFreq * ratios.fifth];
+            case 'sus4':
+                return [rootFreq, rootFreq * ratios.fourth, rootFreq * ratios.fifth];
+            case 'power':
+                return [rootFreq, rootFreq * ratios.fifth, rootFreq * 2];
+            case 'open5':
+                return [rootFreq / ratios.fifth, rootFreq, rootFreq * ratios.fifth];
+            case 'dorian':
+                // Root + minor 3rd + major 6th feel
+                return [rootFreq, rootFreq * ratios.minorThird, rootFreq * ratios.fifth, rootFreq * (useJust ? 5/3 : Math.pow(2, 9/12))];
+            case 'phrygian':
+                // Root + minor 2nd + minor 3rd
+                return [rootFreq, rootFreq * ratios.minorSecond, rootFreq * ratios.minorThird, rootFreq * ratios.fifth];
+            case 'lydian':
+                // Root + raised 4th + 5th
+                return [rootFreq, rootFreq * (useJust ? 45/32 : Math.pow(2, 6/12)), rootFreq * ratios.fifth];
+            case 'mixolydian':
+                // Root + major 3rd + minor 7th
+                return [rootFreq, rootFreq * ratios.majorThird, rootFreq * ratios.fifth, rootFreq * (useJust ? 9/5 : Math.pow(2, 10/12))];
             default:
                 return [rootFreq];
         }
@@ -192,12 +290,10 @@ class DroneGenerator {
             mainGain: null
         };
 
-        // Main gain for this voice
         voice.mainGain = this.audioContext.createGain();
         voice.mainGain.gain.value = 0;
         voice.mainGain.connect(this.lowpassFilter);
 
-        // Oscillator types and their corresponding settings
         const oscTypes = [
             { type: 'sine', level: this.settings.osc1Level },
             { type: 'triangle', level: this.settings.osc2Level },
@@ -207,33 +303,27 @@ class DroneGenerator {
         oscTypes.forEach((oscConfig, oscIndex) => {
             if (oscConfig.level === 0) return;
 
-            // Create slightly detuned oscillator pair for chorus effect
             const detuneAmount = this.settings.detune;
 
-            // Left oscillator (slightly flat)
             const oscLeft = this.audioContext.createOscillator();
             oscLeft.type = oscConfig.type;
             oscLeft.frequency.value = baseFreq;
             oscLeft.detune.value = -detuneAmount + (voiceIndex * 0.5);
 
-            // Right oscillator (slightly sharp)
             const oscRight = this.audioContext.createOscillator();
             oscRight.type = oscConfig.type;
             oscRight.frequency.value = baseFreq;
             oscRight.detune.value = detuneAmount + (voiceIndex * 0.5);
 
-            // Gain for this oscillator pair
             const oscGain = this.audioContext.createGain();
             oscGain.gain.value = oscConfig.level * 0.5;
 
-            // Create stereo panner for width
             const pannerLeft = this.audioContext.createStereoPanner();
             pannerLeft.pan.value = -0.3;
 
             const pannerRight = this.audioContext.createStereoPanner();
             pannerRight.pan.value = 0.3;
 
-            // Connect
             oscLeft.connect(pannerLeft);
             pannerLeft.connect(oscGain);
 
@@ -281,18 +371,14 @@ class DroneGenerator {
             this.audioContext.resume();
         }
 
-        // Create new voices
         this.createVoices();
 
-        // Fade in
         const fadeTime = this.settings.fadeTime;
         const now = this.audioContext.currentTime;
 
-        // Fade in master
         this.masterGain.gain.setValueAtTime(0, now);
         this.masterGain.gain.linearRampToValueAtTime(this.settings.volume, now + fadeTime);
 
-        // Fade in each voice
         this.voices.forEach(voice => {
             voice.mainGain.gain.setValueAtTime(0, now);
             voice.mainGain.gain.linearRampToValueAtTime(1, now + fadeTime);
@@ -302,6 +388,11 @@ class DroneGenerator {
         this.updatePlayButton();
         this.updateStatus('playing');
         this.startVisualization();
+
+        // Start evolution if enabled
+        if (this.evolutionEnabled) {
+            this.startEvolution();
+        }
     }
 
     stop() {
@@ -310,11 +401,9 @@ class DroneGenerator {
         const fadeTime = this.settings.fadeTime;
         const now = this.audioContext.currentTime;
 
-        // Fade out master
         this.masterGain.gain.setValueAtTime(this.masterGain.gain.value, now);
         this.masterGain.gain.linearRampToValueAtTime(0, now + fadeTime);
 
-        // Schedule voice cleanup after fade
         setTimeout(() => {
             this.stopVoices();
         }, (fadeTime + 0.1) * 1000);
@@ -323,6 +412,7 @@ class DroneGenerator {
         this.updatePlayButton();
         this.updateStatus('ready');
         this.stopVisualization();
+        this.stopEvolution();
     }
 
     toggle() {
@@ -333,31 +423,151 @@ class DroneGenerator {
         }
     }
 
-    // Update methods
-    setRootNote(note) {
-        this.settings.rootNote = note;
-        document.getElementById('currentNote').textContent = note;
+    // Evolution mode - subtle parameter drift over time
+    startEvolution() {
+        if (this.evolutionInterval) return;
+
+        const speeds = {
+            slow: 3000,
+            medium: 1500,
+            fast: 800
+        };
+
+        const intervalTime = speeds[this.evolutionSpeed] || speeds.medium;
+
+        // Initialize targets
+        this.evolutionTargets = {
+            filterFreq: this.settings.filterFreq,
+            lfoDepth: this.settings.lfoDepth,
+            detune: this.settings.detune
+        };
+
+        this.evolutionInterval = setInterval(() => {
+            if (!this.isPlaying) return;
+
+            // Drift filter frequency
+            const filterRange = this.settings.filterFreq * 0.2;
+            const filterDrift = (Math.random() - 0.5) * filterRange;
+            let newFilterFreq = this.evolutionTargets.filterFreq + filterDrift;
+            newFilterFreq = Math.max(500, Math.min(5000, newFilterFreq));
+            this.evolutionTargets.filterFreq = newFilterFreq;
+
+            if (this.lowpassFilter) {
+                this.lowpassFilter.frequency.setTargetAtTime(
+                    newFilterFreq,
+                    this.audioContext.currentTime,
+                    1.0
+                );
+            }
+
+            // Drift LFO depth
+            const depthDrift = (Math.random() - 0.5) * 0.05;
+            let newDepth = this.evolutionTargets.lfoDepth + depthDrift;
+            newDepth = Math.max(0.02, Math.min(0.3, newDepth));
+            this.evolutionTargets.lfoDepth = newDepth;
+
+            if (this.lfoGain) {
+                this.lfoGain.gain.setTargetAtTime(
+                    newDepth * this.settings.filterFreq * 0.5,
+                    this.audioContext.currentTime,
+                    1.0
+                );
+            }
+
+            // Occasionally drift detune slightly
+            if (Math.random() > 0.7) {
+                const detuneDrift = (Math.random() - 0.5) * 2;
+                let newDetune = this.evolutionTargets.detune + detuneDrift;
+                newDetune = Math.max(1, Math.min(15, newDetune));
+                this.evolutionTargets.detune = newDetune;
+
+                this.voices.forEach(voice => {
+                    voice.oscillators.forEach((osc, i) => {
+                        const isLeft = i % 2 === 0;
+                        osc.detune.setTargetAtTime(
+                            isLeft ? -newDetune : newDetune,
+                            this.audioContext.currentTime,
+                            0.5
+                        );
+                    });
+                });
+            }
+
+        }, intervalTime);
+    }
+
+    stopEvolution() {
+        if (this.evolutionInterval) {
+            clearInterval(this.evolutionInterval);
+            this.evolutionInterval = null;
+        }
+    }
+
+    setEvolution(enabled) {
+        this.evolutionEnabled = enabled;
+        this.settings.evolution = enabled;
+
+        if (enabled && this.isPlaying) {
+            this.startEvolution();
+        } else {
+            this.stopEvolution();
+        }
+    }
+
+    setEvolutionSpeed(speed) {
+        this.evolutionSpeed = speed;
+        this.settings.evolutionSpeed = speed;
+
+        if (this.evolutionEnabled && this.isPlaying) {
+            this.stopEvolution();
+            this.startEvolution();
+        }
+    }
+
+    setTuning(tuning) {
+        this.currentTuning = tuning;
+        this.settings.tuning = tuning;
+
+        if (this.tunings[tuning]) {
+            this.noteFrequencies = this.calculateNoteFrequencies(this.tunings[tuning]);
+        }
 
         if (this.isPlaying) {
-            // Recreate voices with new note
-            const fadeTime = 0.5;
-            const now = this.audioContext.currentTime;
+            this.recreateVoices();
+        }
+    }
 
-            // Quick crossfade
+    recreateVoices() {
+        const fadeTime = 0.5;
+        const now = this.audioContext.currentTime;
+
+        this.voices.forEach(voice => {
+            voice.mainGain.gain.linearRampToValueAtTime(0, now + fadeTime);
+        });
+
+        setTimeout(() => {
+            this.stopVoices();
+            this.createVoices();
+
+            const newNow = this.audioContext.currentTime;
             this.voices.forEach(voice => {
-                voice.mainGain.gain.linearRampToValueAtTime(0, now + fadeTime);
+                voice.mainGain.gain.setValueAtTime(0, newNow);
+                voice.mainGain.gain.linearRampToValueAtTime(1, newNow + fadeTime);
             });
+        }, fadeTime * 1000);
+    }
 
-            setTimeout(() => {
-                this.stopVoices();
-                this.createVoices();
+    setRootNote(note) {
+        this.settings.rootNote = note;
 
-                const newNow = this.audioContext.currentTime;
-                this.voices.forEach(voice => {
-                    voice.mainGain.gain.setValueAtTime(0, newNow);
-                    voice.mainGain.gain.linearRampToValueAtTime(1, newNow + fadeTime);
-                });
-            }, fadeTime * 1000);
+        // Update display
+        const displayNote = note.startsWith('solfeggio_')
+            ? note.replace('solfeggio_', '') + ' Hz'
+            : note;
+        document.getElementById('currentNote').textContent = displayNote;
+
+        if (this.isPlaying) {
+            this.recreateVoices();
         }
     }
 
@@ -365,24 +575,7 @@ class DroneGenerator {
         this.settings.droneType = type;
 
         if (this.isPlaying) {
-            // Recreate voices with new type
-            const fadeTime = 0.5;
-            const now = this.audioContext.currentTime;
-
-            this.voices.forEach(voice => {
-                voice.mainGain.gain.linearRampToValueAtTime(0, now + fadeTime);
-            });
-
-            setTimeout(() => {
-                this.stopVoices();
-                this.createVoices();
-
-                const newNow = this.audioContext.currentTime;
-                this.voices.forEach(voice => {
-                    voice.mainGain.gain.setValueAtTime(0, newNow);
-                    voice.mainGain.gain.linearRampToValueAtTime(1, newNow + fadeTime);
-                });
-            }, fadeTime * 1000);
+            this.recreateVoices();
         }
     }
 
@@ -390,7 +583,6 @@ class DroneGenerator {
         const key = `osc${oscIndex}Level`;
         this.settings[key] = value;
 
-        // Update existing voices
         this.voices.forEach(voice => {
             if (voice.gains[oscIndex - 1]) {
                 voice.gains[oscIndex - 1].gain.setTargetAtTime(
@@ -405,7 +597,6 @@ class DroneGenerator {
     setDetune(value) {
         this.settings.detune = value;
 
-        // Update existing oscillators
         this.voices.forEach(voice => {
             voice.oscillators.forEach((osc, i) => {
                 const isLeft = i % 2 === 0;
@@ -485,7 +676,6 @@ class DroneGenerator {
     setLfoDepth(value) {
         this.settings.lfoDepth = value;
         if (this.lfoGain) {
-            // Scale depth to filter frequency modulation
             this.lfoGain.gain.setTargetAtTime(
                 value * this.settings.filterFreq * 0.5,
                 this.audioContext.currentTime,
@@ -507,7 +697,9 @@ class DroneGenerator {
                 filterRes: 1,
                 reverbAmount: 40,
                 lfoRate: 5,
-                lfoDepth: 15
+                lfoDepth: 15,
+                evolution: true,
+                evolutionSpeed: 'slow'
             },
             sleep: {
                 rootNote: 'C2',
@@ -516,11 +708,13 @@ class DroneGenerator {
                 osc2Level: 10,
                 osc3Level: 0,
                 detune: 2,
-                filterFreq: 800,
+                filterFreq: 600,
                 filterRes: 0,
                 reverbAmount: 50,
-                lfoRate: 3,
-                lfoDepth: 5
+                lfoRate: 2,
+                lfoDepth: 5,
+                evolution: true,
+                evolutionSpeed: 'slow'
             },
             focus: {
                 rootNote: 'A3',
@@ -533,7 +727,9 @@ class DroneGenerator {
                 filterRes: 2,
                 reverbAmount: 20,
                 lfoRate: 8,
-                lfoDepth: 8
+                lfoDepth: 8,
+                evolution: false,
+                evolutionSpeed: 'medium'
             },
             cinematic: {
                 rootNote: 'D2',
@@ -546,7 +742,69 @@ class DroneGenerator {
                 filterRes: 3,
                 reverbAmount: 60,
                 lfoRate: 6,
-                lfoDepth: 20
+                lfoDepth: 20,
+                evolution: true,
+                evolutionSpeed: 'medium'
+            },
+            soundBath: {
+                rootNote: 'solfeggio_528',
+                droneType: 'fifth',
+                osc1Level: 85,
+                osc2Level: 15,
+                osc3Level: 0,
+                detune: 4,
+                filterFreq: 2000,
+                filterRes: 1,
+                reverbAmount: 55,
+                lfoRate: 4,
+                lfoDepth: 12,
+                evolution: true,
+                evolutionSpeed: 'slow'
+            },
+            yogaFlow: {
+                rootNote: 'G3',
+                droneType: 'sus4',
+                osc1Level: 70,
+                osc2Level: 25,
+                osc3Level: 5,
+                detune: 5,
+                filterFreq: 2800,
+                filterRes: 2,
+                reverbAmount: 35,
+                lfoRate: 6,
+                lfoDepth: 10,
+                evolution: true,
+                evolutionSpeed: 'medium'
+            },
+            deepGrounding: {
+                rootNote: 'C2',
+                droneType: 'power',
+                osc1Level: 95,
+                osc2Level: 5,
+                osc3Level: 0,
+                detune: 2,
+                filterFreq: 500,
+                filterRes: 0,
+                reverbAmount: 40,
+                lfoRate: 2,
+                lfoDepth: 3,
+                evolution: false,
+                evolutionSpeed: 'slow'
+            },
+            cosmicDrift: {
+                rootNote: 'E3',
+                droneType: 'lydian',
+                osc1Level: 55,
+                osc2Level: 30,
+                osc3Level: 15,
+                detune: 10,
+                filterFreq: 3500,
+                filterRes: 4,
+                reverbAmount: 70,
+                lfoRate: 3,
+                lfoDepth: 25,
+                evolution: true,
+                evolutionSpeed: 'fast'
             }
         };
 
@@ -584,7 +842,21 @@ class DroneGenerator {
             document.getElementById('lfoDepth').value = p.lfoDepth;
             document.getElementById('lfoDepthValue').textContent = p.lfoDepth + '%';
 
-            document.getElementById('currentNote').textContent = p.rootNote;
+            // Update evolution controls
+            const evolutionToggle = document.getElementById('evolutionToggle');
+            const evolutionSpeed = document.getElementById('evolutionSpeed');
+            if (evolutionToggle) {
+                evolutionToggle.checked = p.evolution;
+            }
+            if (evolutionSpeed) {
+                evolutionSpeed.value = p.evolutionSpeed;
+            }
+
+            // Update note display
+            const displayNote = p.rootNote.startsWith('solfeggio_')
+                ? p.rootNote.replace('solfeggio_', '') + ' Hz'
+                : p.rootNote;
+            document.getElementById('currentNote').textContent = displayNote;
 
             // Apply settings
             this.settings.rootNote = p.rootNote;
@@ -599,6 +871,12 @@ class DroneGenerator {
             this.settings.lfoRate = p.lfoRate / 100;
             this.settings.lfoDepth = p.lfoDepth / 100;
 
+            // Set evolution
+            this.evolutionEnabled = p.evolution;
+            this.evolutionSpeed = p.evolutionSpeed;
+            this.settings.evolution = p.evolution;
+            this.settings.evolutionSpeed = p.evolutionSpeed;
+
             // Apply to audio if playing
             if (this.audioContext) {
                 this.setFilterFreq(p.filterFreq);
@@ -608,25 +886,18 @@ class DroneGenerator {
                 this.setLfoDepth(p.lfoDepth / 100);
             }
 
+            // Handle evolution
+            if (this.isPlaying) {
+                if (p.evolution) {
+                    this.startEvolution();
+                } else {
+                    this.stopEvolution();
+                }
+            }
+
             // Recreate voices if playing
             if (this.isPlaying) {
-                const fadeTime = 0.5;
-                const now = this.audioContext.currentTime;
-
-                this.voices.forEach(voice => {
-                    voice.mainGain.gain.linearRampToValueAtTime(0, now + fadeTime);
-                });
-
-                setTimeout(() => {
-                    this.stopVoices();
-                    this.createVoices();
-
-                    const newNow = this.audioContext.currentTime;
-                    this.voices.forEach(voice => {
-                        voice.mainGain.gain.setValueAtTime(0, newNow);
-                        voice.mainGain.gain.linearRampToValueAtTime(1, newNow + fadeTime);
-                    });
-                }, fadeTime * 1000);
+                this.recreateVoices();
             }
 
             // Update active button
@@ -660,7 +931,16 @@ class DroneGenerator {
         const text = badge.querySelector('.status-text');
 
         badge.className = 'status-badge ' + state;
-        text.textContent = state === 'playing' ? 'Playing' : 'Ready';
+
+        if (state === 'playing') {
+            if (this.evolutionEnabled) {
+                text.textContent = 'Evolving';
+            } else {
+                text.textContent = 'Playing';
+            }
+        } else {
+            text.textContent = 'Ready';
+        }
     }
 
     // Timer functionality
@@ -710,7 +990,6 @@ class DroneGenerator {
 
         window.addEventListener('resize', () => this.resizeCanvas());
 
-        // Draw initial static state
         this.drawStaticWaveform();
     }
 
@@ -742,7 +1021,6 @@ class DroneGenerator {
         this.canvasCtx.fillStyle = '#000';
         this.canvasCtx.fillRect(0, 0, width, height);
 
-        // Draw center line
         this.canvasCtx.strokeStyle = '#333';
         this.canvasCtx.lineWidth = 1;
         this.canvasCtx.beginPath();
@@ -828,6 +1106,29 @@ class DroneGenerator {
         // Drone type selector
         document.getElementById('droneType')?.addEventListener('change', (e) => {
             this.setDroneType(e.target.value);
+        });
+
+        // Tuning selector
+        document.getElementById('tuning')?.addEventListener('change', (e) => {
+            this.setTuning(e.target.value);
+        });
+
+        // Just intonation toggle
+        document.getElementById('justIntonation')?.addEventListener('change', (e) => {
+            if (this.isPlaying) {
+                this.recreateVoices();
+            }
+        });
+
+        // Evolution toggle
+        document.getElementById('evolutionToggle')?.addEventListener('change', (e) => {
+            this.setEvolution(e.target.checked);
+            this.updateStatus(this.isPlaying ? 'playing' : 'ready');
+        });
+
+        // Evolution speed
+        document.getElementById('evolutionSpeed')?.addEventListener('change', (e) => {
+            this.setEvolutionSpeed(e.target.value);
         });
 
         // Oscillator level sliders

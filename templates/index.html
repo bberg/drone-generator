@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Drone Generator - Ambient Drone Sounds for Meditation, Sleep & Focus</title>
-    <meta name="description" content="Free online drone generator with layered oscillators. Create ambient drones for meditation, sleep, focus, and relaxation. Multiple drone types, filters, and reverb.">
-    <meta name="keywords" content="drone generator, ambient drone, meditation sounds, sleep drone, focus music, oscillator, synthesizer, ambient music">
+    <meta name="description" content="Free online drone generator with layered oscillators, evolution mode, and Solfeggio frequencies. Create ambient drones for meditation, yoga, sound baths, sleep, and focus.">
+    <meta name="keywords" content="drone generator, ambient drone, meditation sounds, sleep drone, focus music, oscillator, synthesizer, ambient music, sound bath, solfeggio frequencies, tanpura, shruti box, 432 Hz, 528 Hz">
     <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -16,12 +16,14 @@
         <header class="page-header">
             <div class="header-content">
                 <h1>Drone Generator</h1>
-                <p class="tagline">Ambient drone sounds for meditation, sleep, and focus</p>
+                <p class="tagline">Ambient drone sounds for meditation, yoga, sleep, and focus</p>
             </div>
             <div class="header-badges">
                 <span class="header-badge"><i class="ri-mental-health-line"></i> Meditation</span>
+                <span class="header-badge"><i class="ri-leaf-line"></i> Yoga</span>
                 <span class="header-badge"><i class="ri-moon-line"></i> Sleep</span>
                 <span class="header-badge"><i class="ri-focus-3-line"></i> Focus</span>
+                <span class="header-badge"><i class="ri-sound-module-line"></i> Sound Bath</span>
             </div>
         </header>
 
@@ -29,14 +31,14 @@
             <a href="#generator" class="nav-link"><i class="ri-sound-module-line"></i> Generator</a>
             <a href="#controls" class="nav-link"><i class="ri-equalizer-line"></i> Controls</a>
             <a href="#effects" class="nav-link"><i class="ri-settings-4-line"></i> Effects</a>
-            <a href="#about-drones" class="nav-link"><i class="ri-question-line"></i> About</a>
+            <a href="#about-drones" class="nav-link"><i class="ri-book-2-line"></i> Learn</a>
         </nav>
 
         <div class="main-controls" id="generator">
             <!-- Presets -->
             <div class="presets">
                 <div class="preset-group">
-                    <h3>Presets</h3>
+                    <h3>Quick Presets</h3>
                     <div class="preset-buttons">
                         <button class="preset-btn" data-preset="meditation">
                             <i class="ri-mental-health-line"></i> Meditation
@@ -50,41 +52,120 @@
                         <button class="preset-btn" data-preset="cinematic">
                             <i class="ri-film-line"></i> Cinematic
                         </button>
+                        <button class="preset-btn" data-preset="soundBath">
+                            <i class="ri-sound-module-line"></i> Sound Bath
+                        </button>
+                        <button class="preset-btn" data-preset="yogaFlow">
+                            <i class="ri-leaf-line"></i> Yoga Flow
+                        </button>
+                        <button class="preset-btn" data-preset="deepGrounding">
+                            <i class="ri-anchor-line"></i> Grounding
+                        </button>
+                        <button class="preset-btn" data-preset="cosmicDrift">
+                            <i class="ri-sparkling-line"></i> Cosmic
+                        </button>
                     </div>
                 </div>
                 <div class="preset-group">
                     <h3>Root Note</h3>
                     <div class="note-selector">
                         <select id="rootNote">
-                            <option value="C2">C2</option>
-                            <option value="D2">D2</option>
-                            <option value="E2">E2</option>
-                            <option value="F2">F2</option>
-                            <option value="G2">G2</option>
-                            <option value="A2">A2</option>
-                            <option value="B2">B2</option>
-                            <option value="C3" selected>C3</option>
-                            <option value="D3">D3</option>
-                            <option value="E3">E3</option>
-                            <option value="F3">F3</option>
-                            <option value="G3">G3</option>
-                            <option value="A3">A3</option>
-                            <option value="B3">B3</option>
-                            <option value="C4">C4</option>
-                            <option value="D4">D4</option>
-                            <option value="E4">E4</option>
+                            <optgroup label="Standard Notes">
+                                <option value="C2">C2 (Deep)</option>
+                                <option value="D2">D2</option>
+                                <option value="E2">E2</option>
+                                <option value="F2">F2</option>
+                                <option value="G2">G2</option>
+                                <option value="A2">A2</option>
+                                <option value="B2">B2</option>
+                                <option value="C3" selected>C3 (Middle)</option>
+                                <option value="D3">D3</option>
+                                <option value="E3">E3</option>
+                                <option value="F3">F3</option>
+                                <option value="G3">G3</option>
+                                <option value="A3">A3</option>
+                                <option value="B3">B3</option>
+                                <option value="C4">C4 (High)</option>
+                                <option value="D4">D4</option>
+                                <option value="E4">E4</option>
+                            </optgroup>
+                            <optgroup label="Solfeggio Frequencies">
+                                <option value="solfeggio_174">174 Hz</option>
+                                <option value="solfeggio_285">285 Hz</option>
+                                <option value="solfeggio_396">396 Hz - Liberation</option>
+                                <option value="solfeggio_417">417 Hz - Change</option>
+                                <option value="solfeggio_528">528 Hz - Transformation</option>
+                                <option value="solfeggio_639">639 Hz - Connection</option>
+                                <option value="solfeggio_741">741 Hz - Expression</option>
+                                <option value="solfeggio_852">852 Hz - Intuition</option>
+                                <option value="solfeggio_963">963 Hz - Awakening</option>
+                            </optgroup>
                         </select>
                         <div class="drone-type-selector">
                             <label>Drone Type</label>
                             <select id="droneType">
-                                <option value="pure">Pure (Single)</option>
-                                <option value="fifth" selected>Fifth</option>
-                                <option value="octave">Octave</option>
-                                <option value="major">Major Chord</option>
-                                <option value="minor">Minor Chord</option>
+                                <optgroup label="Basic">
+                                    <option value="pure">Pure (Single Note)</option>
+                                    <option value="fifth" selected>Fifth (Sa-Pa)</option>
+                                    <option value="octave">Octave</option>
+                                </optgroup>
+                                <optgroup label="Chords">
+                                    <option value="major">Major Chord</option>
+                                    <option value="minor">Minor Chord</option>
+                                    <option value="sus2">Suspended 2nd</option>
+                                    <option value="sus4">Suspended 4th</option>
+                                    <option value="power">Power Chord</option>
+                                    <option value="open5">Open Fifth</option>
+                                </optgroup>
+                                <optgroup label="Modal">
+                                    <option value="dorian">Dorian</option>
+                                    <option value="phrygian">Phrygian</option>
+                                    <option value="lydian">Lydian</option>
+                                    <option value="mixolydian">Mixolydian</option>
+                                </optgroup>
                             </select>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <!-- Advanced Tuning -->
+            <div class="tuning-options">
+                <div class="tuning-row">
+                    <div class="tuning-item">
+                        <label for="tuning">Tuning System</label>
+                        <select id="tuning">
+                            <option value="standard">A4 = 440 Hz (Standard)</option>
+                            <option value="verdi">A4 = 432 Hz (Verdi)</option>
+                            <option value="baroque">A4 = 415 Hz (Baroque)</option>
+                            <option value="scientific">A4 = 430.54 Hz (Scientific)</option>
+                        </select>
+                    </div>
+                    <div class="tuning-item checkbox-item">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="justIntonation">
+                            <span class="checkmark"></span>
+                            Just Intonation
+                        </label>
+                        <span class="tuning-help" title="Use pure mathematical frequency ratios (3:2, 5:4) instead of equal temperament. Creates more resonant, 'pure' sounding intervals.">?</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Evolution Mode -->
+            <div class="evolution-controls">
+                <div class="evolution-row">
+                    <label class="checkbox-label evolution-toggle">
+                        <input type="checkbox" id="evolutionToggle">
+                        <span class="checkmark"></span>
+                        Evolution Mode
+                    </label>
+                    <span class="evolution-desc">Subtle parameter drift for organic, generative sound</span>
+                    <select id="evolutionSpeed" class="evolution-speed">
+                        <option value="slow">Slow</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="fast">Fast</option>
+                    </select>
                 </div>
             </div>
 
@@ -167,6 +248,7 @@
                     <button class="timer-btn" data-time="30">30m</button>
                     <button class="timer-btn" data-time="60">1h</button>
                     <button class="timer-btn" data-time="120">2h</button>
+                    <button class="timer-btn" data-time="180">3h</button>
                 </div>
                 <div class="timer-display" id="timerDisplay">
                     <span class="timer-label">Time remaining:</span>
@@ -210,70 +292,91 @@
         <section class="content-section" id="about-drones">
             <article class="content-article">
                 <h2>About Drone Sounds</h2>
-                <p class="intro-text">Drone music is characterized by sustained tones or repeated sounds that create a continuous, hypnotic soundscape. Used for thousands of years in meditation, religious ceremonies, and traditional music, drones help induce altered states of consciousness and deep relaxation.</p>
-
-                <h3>What is a Drone?</h3>
-                <p>A drone is a sustained musical tone or sound that serves as a foundation for melody or harmony. Unlike rhythmic music, drones emphasize stasis and continuity. The subtle variations in pitch, timbre, and overtones create a rich sonic texture that can be both grounding and transcendent.</p>
+                <p class="intro-text">Drone music is characterized by sustained tones that create a continuous, hypnotic soundscape. Used for thousands of years across cultures for meditation, religious ceremonies, and traditional music, drones help induce relaxation and focused states of consciousness.</p>
 
                 <div class="info-grid">
                     <div class="info-card">
                         <h4><i class="ri-mental-health-line"></i> Meditation & Mindfulness</h4>
-                        <p>Drone sounds have been used in meditation practices for millennia. The steady, continuous tone helps quiet the mind and provides a focal point for attention. Many practitioners find drones more effective than silence for achieving deep meditative states.</p>
-                        <p class="noise-specs"><strong>Best settings:</strong> Low root note, pure or fifth drone, minimal filter, gentle LFO</p>
+                        <p>Drone sounds have been used in meditation practices for millennia. The steady, continuous tone helps quiet the mind and provides a focal point for attention.</p>
+                        <p class="noise-specs"><strong>Try:</strong> Meditation preset with Fifth drone</p>
+                    </div>
+
+                    <div class="info-card">
+                        <h4><i class="ri-leaf-line"></i> Yoga & Sound Baths</h4>
+                        <p>Many yoga teachers and sound bath practitioners use drones to create immersive sonic environments. The sustained tones complement singing bowls, gongs, and other instruments.</p>
+                        <p class="noise-specs"><strong>Try:</strong> Sound Bath or Yoga Flow presets</p>
                     </div>
 
                     <div class="info-card">
                         <h4><i class="ri-moon-line"></i> Sleep & Relaxation</h4>
-                        <p>Low-frequency drones can promote deep relaxation and help with sleep. The predictable, non-jarring nature of drone sounds allows the nervous system to settle into a parasympathetic state. Many people find drones more soothing than other ambient sounds.</p>
-                        <p class="noise-specs"><strong>Best settings:</strong> C2 or D2 root, octave drone, heavy filter, more reverb</p>
-                    </div>
-
-                    <div class="info-card">
-                        <h4><i class="ri-focus-3-line"></i> Focus & Concentration</h4>
-                        <p>Moderate drones can enhance focus by masking distracting sounds while providing a non-intrusive audio environment. The brain habituates to the consistent sound, allowing deeper concentration on tasks requiring sustained attention.</p>
-                        <p class="noise-specs"><strong>Best settings:</strong> C3 or A3 root, fifth drone, moderate filter, subtle movement</p>
+                        <p>Low-frequency drones can promote deep relaxation and help with sleep. The predictable, non-jarring nature allows the nervous system to settle into a parasympathetic state.</p>
+                        <p class="noise-specs"><strong>Try:</strong> Sleep preset with C2 root note</p>
                     </div>
                 </div>
 
-                <h3>Understanding Drone Types</h3>
-                <ul class="feature-list">
-                    <li><strong>Pure (Single):</strong> A single sustained note. The simplest form, focusing attention on one frequency and its natural overtones</li>
-                    <li><strong>Fifth:</strong> Root note plus its perfect fifth (3:2 ratio). One of the most consonant intervals, used in Gregorian chant and Indian classical music</li>
-                    <li><strong>Octave:</strong> Root note doubled at the octave above. Creates a fuller, richer sound while maintaining harmonic simplicity</li>
-                    <li><strong>Major Chord:</strong> Root, major third, and fifth. Produces a bright, uplifting drone character</li>
-                    <li><strong>Minor Chord:</strong> Root, minor third, and fifth. Creates a more introspective, contemplative atmosphere</li>
-                </ul>
+                <h3>History of Drone Music</h3>
 
-                <h3>The Science of Drone Effects</h3>
-                <p>Research into the effects of sustained tones on consciousness reveals several interesting findings:</p>
+                <h4>Ancient and Traditional Roots</h4>
+                <p>The systematic use of drones originated in instrumental music of ancient Southwest Asia and spread throughout the world. The tradition is at least 3,000 years old.</p>
 
                 <ul class="feature-list">
-                    <li><strong>Brainwave Entrainment:</strong> Steady tones can influence brainwave patterns, potentially guiding the brain toward alpha (relaxation) or theta (meditation) states</li>
-                    <li><strong>Vagal Tone:</strong> Low-frequency sounds may stimulate the vagus nerve, promoting parasympathetic activation and stress reduction</li>
-                    <li><strong>Auditory Masking:</strong> Continuous tones mask environmental sounds that might otherwise cause stress or distraction</li>
-                    <li><strong>Attention Anchoring:</strong> A stable auditory reference point can help anchor attention during meditation or focused work</li>
-                    <li><strong>Harmonic Resonance:</strong> Certain intervals and frequencies are believed to resonate with the body's natural frequencies, though scientific evidence is limited</li>
+                    <li><strong>Indian Classical Music:</strong> The tanpura (dating to ~300 BCE) provides a continuous drone underlying raga performances. The instrument's four strings are tuned to the root (Sa) and fifth (Pa), creating a harmonic bed for melodic exploration. The "jivari" technique creates rich, buzzing overtones.</li>
+                    <li><strong>Tibetan Buddhism:</strong> Deep vocal overtone singing and horn drones accompany meditation and ritual practices. Monks create multiple simultaneous pitches through specialized vocal techniques.</li>
+                    <li><strong>Gregorian Chant:</strong> Early polyphonic music featured "organum" where drone voices supported melodic lines, creating some of the earliest Western harmonies.</li>
+                    <li><strong>Scottish Bagpipes:</strong> The drone pipes produce sustained bass notes while the chanter plays melody - a tradition dating back centuries.</li>
+                    <li><strong>Didgeridoo:</strong> Australian Aboriginal instrument producing continuous drone through circular breathing, used for ceremonies and meditation.</li>
+                    <li><strong>Shruti Box:</strong> The harmonium-like Indian instrument creates portable drones for vocal practice and meditation. Electronic versions (invented 1979) made drones accessible worldwide.</li>
                 </ul>
 
-                <h3>Traditional Uses of Drone Music</h3>
-                <p>Drones appear in many world music traditions:</p>
+                <h4>Modern Drone and Minimalism</h4>
+                <p>The transition into modern "Drone Music" as a distinct genre happened in the 1960s with the rise of the New York minimalist scene.</p>
 
                 <ul class="feature-list">
-                    <li><strong>Indian Classical:</strong> The tanpura provides a continuous drone underlying raga performances, creating a harmonic bed for melodic exploration</li>
-                    <li><strong>Tibetan Buddhism:</strong> Deep vocal overtone singing and horn drones accompany meditation and ritual practices</li>
-                    <li><strong>Scottish Bagpipes:</strong> The drone pipes provide sustained notes while the chanter plays melody</li>
-                    <li><strong>Gregorian Chant:</strong> Early polyphonic music often featured drone voices supporting melodic lines</li>
-                    <li><strong>Didgeridoo:</strong> Australian Aboriginal instrument producing continuous drone through circular breathing</li>
+                    <li><strong>La Monte Young:</strong> Often called the "father of drone music" and minimalism. His work with the Theatre of Eternal Music pioneered sustained-tone exploration with "dream chords."</li>
+                    <li><strong>Pauline Oliveros:</strong> Developed "Deep Listening," using natural acoustics of massive underground cisterns to create resonant drones.</li>
+                    <li><strong>Eliane Radigue:</strong> Master of the ARP 2500 synthesizer, creating long, slowly evolving works that seem to stand still.</li>
+                    <li><strong>Brian Eno:</strong> Popularized "ambient music" and "generative music" with works like Ambient 1: Music for Airports (1978).</li>
+                    <li><strong>William Basinski:</strong> The Disintegration Loops explored decay and transformation through degrading analog tape loops.</li>
                 </ul>
+
+                <h3>Understanding Our Drone Types</h3>
+                <ul class="feature-list">
+                    <li><strong>Pure (Single):</strong> A single sustained note - the simplest form, focusing on one frequency and its natural overtones</li>
+                    <li><strong>Fifth (Sa-Pa):</strong> Root plus perfect fifth (3:2 ratio). The most consonant interval after the octave, used in tanpura tuning and Gregorian chant</li>
+                    <li><strong>Octave:</strong> Root doubled at the octave (2:1 ratio). Fuller, richer sound while maintaining harmonic simplicity</li>
+                    <li><strong>Major/Minor Chords:</strong> Three-note chords providing brighter (major) or more contemplative (minor) character</li>
+                    <li><strong>Suspended Chords:</strong> Replace the third with 2nd or 4th, creating open, ambiguous harmonies popular in ambient music</li>
+                    <li><strong>Modal Drones:</strong> Based on ancient Greek and church modes - Dorian (bittersweet), Phrygian (exotic), Lydian (bright, floating), Mixolydian (bluesy)</li>
+                </ul>
+
+                <h3>Tuning Systems Explained</h3>
+                <ul class="feature-list">
+                    <li><strong>A4 = 440 Hz (Standard):</strong> The modern international standard established in 1955. Most music today uses this reference.</li>
+                    <li><strong>A4 = 432 Hz (Verdi):</strong> Some musicians and listeners prefer this slightly lower tuning, claiming it sounds "warmer." Giuseppe Verdi advocated for it. While claims of special healing properties lack scientific evidence, many find it subjectively pleasant.</li>
+                    <li><strong>A4 = 415 Hz (Baroque):</strong> Historical pitch used in much Baroque-era music. Significantly lower than modern pitch.</li>
+                    <li><strong>Just Intonation:</strong> Uses pure mathematical ratios (3:2 for fifths, 5:4 for major thirds) rather than the equal temperament used in most Western music. Creates more resonant, "beating-free" harmonies but doesn't work for all keys.</li>
+                </ul>
+
+                <h3>About Solfeggio Frequencies</h3>
+                <p>Solfeggio frequencies are specific tones believed by some to have healing properties. They trace back to medieval Gregorian chants, though modern claims emerged in the 1970s-90s.</p>
+
+                <p><strong>Scientific perspective:</strong> Research is limited but growing. A 2018 study found 528 Hz reduced stress markers compared to controls. A 2023 zebrafish study showed solfeggio music reversed stress-induced cognitive effects. However, the specific claims (like "DNA repair") lack scientific support. The relaxation benefits may not be unique to these specific frequencies - any calming sound can reduce stress.</p>
+
+                <p>We offer Solfeggio frequencies as options for those who find them helpful, while being transparent about the limited scientific evidence. Many users report subjective benefits from these frequencies during meditation and relaxation.</p>
+
+                <h3>Evolution Mode</h3>
+                <p>Inspired by Brian Eno's generative music principles, Evolution Mode creates subtle, continuous parameter drift so the drone never repeats exactly. Filter cutoff, modulation depth, and detune amounts slowly wander within musical ranges, creating an organic, "alive" quality that keeps the sound interesting over extended listening sessions.</p>
 
                 <h3>Tips for Using Drone Generator</h3>
                 <ul class="feature-list">
-                    <li><strong>Start Low:</strong> Begin with lower root notes for relaxation and sleep; higher notes for alert focus</li>
-                    <li><strong>Add Movement Gradually:</strong> Start with static drones and slowly introduce LFO modulation for interest</li>
-                    <li><strong>Use Headphones:</strong> Headphones reveal subtle details and stereo effects that speakers may miss</li>
+                    <li><strong>Start Low:</strong> Begin with lower root notes (C2, D2) for relaxation and sleep; higher notes (A3, C4) for alert focus</li>
+                    <li><strong>Enable Evolution:</strong> For longer sessions, turn on Evolution Mode to prevent listener fatigue</li>
+                    <li><strong>Use Headphones:</strong> Headphones reveal subtle stereo details and detuning effects that speakers may miss</li>
+                    <li><strong>Try Just Intonation:</strong> For the purest, most resonant harmonies, enable Just Intonation with Fifth or Major drone types</li>
                     <li><strong>Combine with Breathing:</strong> Sync your breath to the drone's subtle movements for deeper meditation</li>
-                    <li><strong>Experiment with Duration:</strong> Drones often need 10-15 minutes to produce full effects; be patient</li>
+                    <li><strong>Be Patient:</strong> Drones often need 10-15 minutes to produce full relaxation effects</li>
                     <li><strong>Keep Volume Moderate:</strong> Drones should be present but not overwhelming; lower volumes work better for extended listening</li>
+                    <li><strong>Experiment with Modes:</strong> Try Lydian for an uplifting, floating quality or Phrygian for a more exotic, introspective character</li>
                 </ul>
             </article>
         </section>
@@ -282,13 +385,13 @@
             <div class="footer-content">
                 <div class="footer-brand">
                     <span class="footer-logo">Drone Generator</span>
-                    <p>Free online ambient drone generator for meditation, sleep, focus, and relaxation. Create rich, layered drone sounds with multiple oscillators.</p>
+                    <p>Free online ambient drone generator for meditation, yoga, sound baths, sleep, and focus. Create rich, evolving drone sounds with multiple oscillators, modal harmonies, and generative evolution.</p>
                 </div>
                 <div class="footer-links">
                     <h4>Quick Links</h4>
                     <a href="#generator">Generator</a>
                     <a href="#controls">Controls</a>
-                    <a href="#about-drones">About Drones</a>
+                    <a href="#about-drones">Learn About Drones</a>
                 </div>
                 <div class="footer-related">
                     <h4>Related Tools</h4>
