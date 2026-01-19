@@ -87,3 +87,5 @@ Crawl-delay: 1'''
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 8004))
     app.run(host='0.0.0.0', port=port)
+
+# Redeploy trigger: 20260119104038
