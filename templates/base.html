@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}OmTones - Meditative Drone Sounds{% endblock %}</title>
+    <meta name="description" content="{% block description %}OmTones creates sacred Om-like drone sounds with layered oscillators for meditation, yoga, sound healing, and spiritual practice.{% endblock %}">
+    {% block meta_extra %}{% endblock %}
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CY9RPV2T0Q"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-CY9RPV2T0Q');
+    </script>
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    {% block head_extra %}{% endblock %}
+</head>
+<body>
+    <div class="container">
+        <header class="page-header">
+            <div class="header-content">
+                <h1><a href="/" style="color: inherit; text-decoration: none;">OmTones</a></h1>
+                <p class="tagline">{% block tagline %}Sacred drone sounds for meditation, yoga, and spiritual practice{% endblock %}</p>
+            </div>
+        </header>
+
+        <nav class="mini-nav">
+            <a href="/#generator" class="nav-link"><i class="ri-sound-module-line"></i> Generator</a>
+            <a href="/#controls" class="nav-link"><i class="ri-equalizer-line"></i> Controls</a>
+            <a href="/#about-drones" class="nav-link"><i class="ri-book-2-line"></i> Learn</a>
+            <div class="nav-dropdown">
+                <a href="#" class="nav-link dropdown-trigger {% if active_page in ['science', 'applications', 'traditions', 'faq'] %}active{% endif %}"><i class="ri-information-line"></i> Info <i class="ri-arrow-down-s-line dropdown-arrow"></i></a>
+                <div class="dropdown-menu">
+                    <a href="/science" {% if active_page == 'science' %}class="active"{% endif %}><i class="ri-flask-line"></i> Science & Research</a>
+                    <a href="/applications" {% if active_page == 'applications' %}class="active"{% endif %}><i class="ri-tools-line"></i> Practical Applications</a>
+                    <a href="/traditions" {% if active_page == 'traditions' %}class="active"{% endif %}><i class="ri-ancient-gate-line"></i> Spiritual Traditions</a>
+                    <a href="/faq" {% if active_page == 'faq' %}class="active"{% endif %}><i class="ri-question-answer-line"></i> FAQ</a>
+                </div>
+            </div>
+        </nav>
+
+        {% block content %}{% endblock %}
+
+        <footer class="site-footer">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="footer-logo">OmTones</span>
+                    <p>Create sacred Om-like drone sounds for meditation, yoga, sound healing, and spiritual practice. Rich, evolving meditative tones with multiple oscillators, modal harmonies, and generative evolution.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Learn More</h4>
+                    <a href="/science">Science & Research</a>
+                    <a href="/applications">Practical Applications</a>
+                    <a href="/traditions">Spiritual Traditions</a>
+                    <a href="/faq">FAQ</a>
+                </div>
+                <div class="footer-related">
+                    <h4>Related Tools</h4>
+                    <a href="https://sirengenerator.com" target="_blank">Siren Generator</a>
+                    <a href="https://focushum.com" target="_blank">Noise Generator</a>
+                    <a href="https://tonesynth.com" target="_blank">Tone Generator</a>
+                    <a href="https://binauralhq.com" target="_blank">Binaural Beats</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Part of the Audio Tools Network. For educational and personal use.</p>
+            </div>
+        </footer>
+    </div>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,371 @@
+{% extends "base.html" %}
+
+{% block title %}Drone Sounds FAQ - Common Questions About Meditation Drones & Om Tones | OmTones{% endblock %}
+
+{% block description %}Answers to frequently asked questions about drone sounds, meditation tones, Solfeggio frequencies, tanpura, and sacred sound practices. Learn about Om drones, tuning systems, and more.{% endblock %}
+
+{% block meta_extra %}
+<meta property="og:title" content="Drone Sounds FAQ - Common Questions About Meditation Drones">
+<meta property="og:description" content="Expert answers about drone sounds, Solfeggio frequencies, tuning systems, evolution mode, and meditation sound practices.">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://omtones.com/faq">
+
+<!-- FAQ Schema Markup -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is a drone sound?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A drone is a sustained, continuous tone that provides a stable harmonic foundation. Unlike melody, which moves through different pitches, a drone maintains one or more constant frequencies. Drones have been used in meditation and contemplative practice for thousands of years, from Indian tanpura to Tibetan chanting to Gregorian organum."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are Solfeggio frequencies and do they really work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Solfeggio frequencies are specific tones (174, 285, 396, 417, 528, 639, 741, 852, 963 Hz) claimed to have healing properties. While some research suggests certain frequencies may affect mood and physiology, claims of DNA repair or specific healing effects lack strong scientific evidence. Many practitioners report subjective benefits regardless of the specific mechanism."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between 432 Hz and 440 Hz tuning?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "440 Hz is the modern international standard for tuning (A4 = 440 Hz). 432 Hz (Verdi tuning) is slightly lower and advocated by some musicians as sounding 'warmer' or more natural. Giuseppe Verdi promoted it in the 19th century. While claims of special healing properties lack scientific support, many listeners subjectively prefer the slightly lower pitch for relaxation."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is just intonation?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Just intonation uses pure mathematical frequency ratios (like 3:2 for a perfect fifth) rather than the equal temperament used in modern Western music. This creates intervals without 'beating' or wavering. For drone music, just intonation can sound more stable and resonant. However, it only works well in one key - which is fine for drones that stay on one root note."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is Evolution Mode?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Evolution Mode creates subtle, continuous parameter drift so the drone never exactly repeats. Filter cutoff, modulation depth, and detune amounts slowly wander within musical ranges. This prevents listener fatigue during long sessions and creates an organic, 'alive' quality. It's inspired by Brian Eno's generative music principles."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is a tanpura and how does it relate to this tool?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The tanpura is a traditional Indian string instrument that produces a continuous drone, typically tuned to the root (Sa) and fifth (Pa). It provides the harmonic foundation for Indian classical music and meditation. OmTones recreates this sound digitally using the 'Fifth (Sa-Pa)' drone type, with optional just intonation for pure harmonic ratios."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long should I listen to drone sounds for meditation?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For meditation, 15-45 minutes is common. Research suggests the relaxation response takes about 10-15 minutes to fully engage. For sleep, 30-60 minutes with the sleep timer is typical. For background during yoga or creative work, sessions can last hours. Start with shorter sessions and increase as you become comfortable."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should I use headphones or speakers?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Both work well. Headphones reveal subtle stereo details and detune effects, and provide better isolation from external sounds. Speakers allow the sound to fill a room and can create a more enveloping physical experience. For deep bass frequencies (C2, D2), good speakers or subwoofer help reproduce the full sound."
+      }
+    }
+  ]
+}
+</script>
+{% endblock %}
+
+{% block tagline %}Answers to common questions about meditation drone sounds{% endblock %}
+
+{% block content %}
+<div class="faq-container">
+    <div class="faq-hero">
+        <h1>Frequently Asked Questions</h1>
+        <p>Expert answers about drone sounds, Solfeggio frequencies, tuning systems, and meditation sound practices.</p>
+    </div>
+
+    <!-- General Drone Questions -->
+    <section class="faq-section">
+        <h2>General Drone Questions</h2>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                <span>What is a drone sound?</span>
+                <i class="ri-arrow-down-s-line"></i>
+            </div>
+            <div class="faq-answer">
+                <p>A <strong>drone</strong> is a sustained, continuous tone that provides a stable harmonic foundation. Unlike melody, which moves through different pitches, a drone maintains one or more constant frequencies. The sound may contain subtle variations (overtones, slight modulation), but the fundamental pitch remains steady.</p>
+                <p>Drones have been used in meditation and contemplative practice for thousands of years, from Indian tanpura to Tibetan chanting to Gregorian organum. The continuous nature creates a stable field of sound that supports focused attention and relaxation.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                <span>What is a tanpura and how does it relate to this tool?</span>
+                <i class="ri-arrow-down-s-line"></i>
+            </div>
+            <div class="faq-answer">
+                <p>The <strong>tanpura</strong> (or tambura) is a traditional Indian string instrument that produces a continuous drone. It typically has 4-5 strings tuned to the tonic (Sa) and fifth (Pa), played in a continuous cycle. The characteristic "singing" quality comes from a curved bridge that creates rich overtones.</p>
+                <p>OmTones recreates this sound digitally using the <strong>"Fifth (Sa-Pa)"</strong> drone type, which layers the root note with a perfect fifth above. Enable <strong>Just Intonation</strong> for the pure 3:2 ratio of traditional tuning, and use <strong>Evolution Mode</strong> to approximate the natural variation of a physical tanpura.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                <span>What is the difference between the drone types?</span>
+                <i class="ri-arrow-down-s-line"></i>
+            </div>
+            <div class="faq-answer">
+                <p><strong>Pure (Single):</strong> A single sustained note - the simplest form, focusing on one frequency and its natural overtones. Good for minimalist practice.</p>
+                <p><strong>Fifth (Sa-Pa):</strong> Root plus perfect fifth (3:2 ratio). The most consonant interval after the octave. Traditional tanpura tuning. Creates the characteristic "Om" quality.</p>
+                <p><strong>Octave:</strong> Root doubled at the octave (2:1 ratio). Fuller, richer sound while maintaining harmonic simplicity.</p>
+                <p><strong>Major/Minor Chords:</strong> Three-note chords providing brighter (major) or more contemplative (minor) character.</p>
+                <p><strong>Suspended Chords:</strong> Replace the third with 2nd or 4th, creating open, ambiguous harmonies popular in ambient music.</p>
+                <p><strong>Modal Drones:</strong> Based on ancient Greek and church modes - Dorian (bittersweet), Phrygian (exotic), Lydian (bright, floating), Mixolydian (bluesy).</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                <span>What is Evolution Mode?</span>
+                <i class="ri-arrow-down-s-line"></i>
+            </div>
+            <div class="faq-answer">
+                <p><strong>Evolution Mode</strong> creates subtle, continuous parameter drift so the drone never exactly repeats. Filter cutoff, modulation depth, and detune amounts slowly wander within musical ranges.</p>
+                <p>This prevents listener fatigue during long sessions - when a sound is too static, the brain habituates and it fades from awareness. Evolution keeps the sound "alive" and interesting while remaining non-distracting.</p>
+                <p>It's inspired by Brian Eno's generative music principles: systems that create music that is "as ignorable as it is interesting."</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solfeggio & Frequency Questions -->
+    <section class="faq-section">
+        <h2>Solfeggio & Frequency Questions</h2>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                <span>What are Solfeggio frequencies and do they really work?</span>
+                <i class="ri-arrow-down-s-line"></i>
+            </div>
+            <div class="faq-answer">
+                <p><strong>Solfeggio frequencies</strong> are specific tones (174, 285, 396, 417, 528, 639, 741, 852, 963 Hz) claimed to have healing properties. They're associated with medieval chant, though this connection is disputed by historians.</p>
+                <p><strong>The evidence:</strong> Some research suggests certain frequencies may affect mood and physiology. A 2018 study found 528 Hz reduced stress markers compared to controls. However, claims of "DNA repair" or specific healing effects lack strong scientific support.</p>
+                <p><strong>Our approach:</strong> We offer Solfeggio frequencies as options for those who find them helpful, while being transparent about the limited evidence. Many practitioners report subjective benefits regardless of the specific mechanism - and the placebo effect is itself a real physiological phenomenon.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                <span>What is the difference between 432 Hz and 440 Hz tuning?</span>
+                <i class="ri-arrow-down-s-line"></i>
+            </div>
+            <div class="faq-answer">
+                <p><strong>440 Hz</strong> is the modern international standard for tuning (A4 = 440 Hz), established in 1955. Most contemporary music uses this reference pitch.</p>
+                <p><strong>432 Hz</strong> (sometimes called "Verdi tuning") is slightly lower. Giuseppe Verdi advocated for it in the 19th century, and some musicians claim it sounds "warmer," more "natural," or more "in tune with the universe."</p>
+                <p><strong>The science:</strong> Claims of special healing properties lack rigorous scientific support. The difference (8 Hz lower) is subtle but audible. Some listeners subjectively prefer 432 Hz for relaxation - personal preference is valid regardless of whether claimed mechanisms are accurate.</p>
+                <p>We also offer 415 Hz (Baroque tuning) for those interested in historical pitch standards.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                <span>What is just intonation?</span>
+                <i class="ri-arrow-down-s-line"></i>
+            </div>
+            <div class="faq-answer">
+                <p><strong>Just intonation</strong> uses pure mathematical frequency ratios derived from the harmonic series:</p>
+                <p>- Perfect fifth = 3:2 (instead of equal temperament's 2^(7/12):1)<br>
+                - Major third = 5:4 (instead of 2^(4/12):1)<br>
+                - Perfect fourth = 4:3</p>
+                <p>These pure ratios create intervals without "beating" or wavering. For drone music, where intervals are sustained rather than passing quickly, just intonation can sound more stable and resonant.</p>
+                <p><strong>The tradeoff:</strong> Just intonation only works well in one key. This is perfect for drones (which stay on one root note) but problematic for music that changes keys. Most Indian classical music and some world music traditions use just intonation; most Western music since the 18th century uses equal temperament.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                <span>What is 528 Hz and why is it called the "love frequency"?</span>
+                <i class="ri-arrow-down-s-line"></i>
+            </div>
+            <div class="faq-answer">
+                <p><strong>528 Hz</strong> is one of the Solfeggio frequencies, corresponding to "Mi" on the scale. It's been called the "love frequency," "miracle tone," or "DNA repair frequency" by various proponents.</p>
+                <p><strong>The claims:</strong> Some assert that 528 Hz resonates with water and DNA, promotes healing, and was used to bless water in ancient cultures. The "DNA repair" claim originated from a book by Dr. Leonard Horowitz.</p>
+                <p><strong>The reality:</strong> While some studies show subtle physiological effects from certain frequencies, claims of DNA repair are not supported by peer-reviewed research. The frequency doesn't have special mathematical properties beyond being an integer.</p>
+                <p>That said, 528 Hz is approximately between C5 and C#5 in 440 Hz tuning - a pleasant, mid-range frequency that many find agreeable for meditation. Subjective benefits may occur regardless of mechanism.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Practice & Usage Questions -->
+    <section class="faq-section">
+        <h2>Practice & Usage</h2>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                <span>How long should I listen to drone sounds for meditation?</span>
+                <i class="ri-arrow-down-s-line"></i>
+            </div>
+            <div class="faq-answer">
+                <p>Duration depends on your purpose and experience level:</p>
+                <p><strong>For meditation:</strong> 15-45 minutes is common. Research suggests the "relaxation response" takes about 10-15 minutes to fully engage. Experienced meditators often sit for 30-60 minutes or longer.</p>
+                <p><strong>For sleep:</strong> 30-60 minutes with the sleep timer is typical. This provides support during the sleep onset period without running all night (unless you want continuous masking).</p>
+                <p><strong>For yoga/creative work:</strong> Sessions can last hours. Use Evolution Mode to prevent monotony.</p>
+                <p><strong>Starting out:</strong> Begin with 10-15 minute sessions. If you find yourself getting restless, that's normal - gradually increase duration as you become comfortable.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                <span>Should I use headphones or speakers?</span>
+                <i class="ri-arrow-down-s-line"></i>
+            </div>
+            <div class="faq-answer">
+                <p><strong>Both work well</strong>, with different advantages:</p>
+                <p><strong>Headphones:</strong></p>
+                <p>- Reveal subtle stereo details and detuning effects<br>
+                - Provide better isolation from external sounds<br>
+                - Good for focused meditation and sleep<br>
+                - Work well in shared spaces</p>
+                <p><strong>Speakers:</strong></p>
+                <p>- Allow sound to fill a room<br>
+                - Create more enveloping physical experience<br>
+                - Better for movement practices (yoga)<br>
+                - Essential for low frequencies (C2, D2) - phone speakers and earbuds can't reproduce deep bass</p>
+                <p>For the deepest bass notes, you'll need good speakers or a subwoofer to hear the full sound.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                <span>What root note should I use?</span>
+                <i class="ri-arrow-down-s-line"></i>
+            </div>
+            <div class="faq-answer">
+                <p>Choose based on your purpose and physical setup:</p>
+                <p><strong>For relaxation/sleep (C2, D2):</strong> Very low frequencies create a deeply grounding, calming presence. Requires good speakers to hear properly.</p>
+                <p><strong>For meditation (C3, D3):</strong> Mid-range tones are clear and focused without being either too heavy or too bright. The classic tanpura range.</p>
+                <p><strong>For alertness/focus (A3, C4):</strong> Higher tones create more energized, awake states. Good for creative work where you want presence without drowsiness.</p>
+                <p><strong>For humming/chanting:</strong> Match the drone to your natural humming pitch. Most voices are comfortable in the D3-G3 range.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                <span>Can I use drone sounds while working?</span>
+                <i class="ri-arrow-down-s-line"></i>
+            </div>
+            <div class="faq-answer">
+                <p><strong>Yes</strong> - many people use drones as background audio for focused work. Unlike music with lyrics or strong melodic content, drones don't compete for cognitive resources.</p>
+                <p><strong>Tips for work use:</strong></p>
+                <p>- Keep volume low - the sound should be present but not intrusive<br>
+                - Use higher root notes (A3, C4) for more alert energy<br>
+                - Enable Evolution Mode to prevent the sound from becoming "invisible"<br>
+                - Try the Focus preset as a starting point<br>
+                - Roll off high frequencies if the sound feels too bright/distracting</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                <span>Why doesn't the sound work on my phone?</span>
+                <i class="ri-arrow-down-s-line"></i>
+            </div>
+            <div class="faq-answer">
+                <p>Mobile browsers require user interaction before playing audio (to prevent auto-playing ads). Make sure you're tapping the "Play" button rather than expecting automatic playback.</p>
+                <p>Also check that:</p>
+                <p>- Your phone isn't on silent/vibrate mode<br>
+                - Volume is turned up<br>
+                - Browser permissions allow audio playback<br>
+                - You're using a recent browser version (Chrome, Safari, Firefox)</p>
+                <p><strong>Note on bass:</strong> Phone speakers cannot reproduce low frequencies (C2, D2). You'll need headphones or external speakers to hear these notes properly.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Questions -->
+    <section class="faq-section">
+        <h2>Technical Questions</h2>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                <span>How does OmTones work technically?</span>
+                <i class="ri-arrow-down-s-line"></i>
+            </div>
+            <div class="faq-answer">
+                <p>OmTones uses the <strong>Web Audio API</strong> to synthesize sounds in real-time directly in your browser. No sounds are pre-recorded - everything is generated mathematically based on your parameter settings.</p>
+                <p>Key components include:</p>
+                <p>- <strong>Oscillators:</strong> Multiple waveform generators (sine, triangle, sawtooth) create the base tones<br>
+                - <strong>Gain nodes:</strong> Control volume and mixing of oscillator layers<br>
+                - <strong>Filter:</strong> Low-pass filter shapes the harmonic content<br>
+                - <strong>LFO:</strong> Low-frequency oscillator creates subtle modulation<br>
+                - <strong>Convolver:</strong> Adds reverb for spatial quality<br>
+                - <strong>Analyser:</strong> Powers the waveform visualization</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                <span>What is the difference between sine, triangle, and sawtooth oscillators?</span>
+                <i class="ri-arrow-down-s-line"></i>
+            </div>
+            <div class="faq-answer">
+                <p><strong>Sine waves</strong> are pure tones with no harmonics - smooth and mellow sounding. The fundamental building block of all sound.</p>
+                <p><strong>Triangle waves</strong> contain odd harmonics (3rd, 5th, 7th, etc.) at decreasing amplitudes. Slightly brighter than sine, but still warm and soft.</p>
+                <p><strong>Sawtooth waves</strong> contain all harmonics (2nd, 3rd, 4th, etc.), creating the brightest, most complex timbre. Rich and slightly buzzy - closer to mechanical instruments like tanpura or bowed strings.</p>
+                <p>OmTones lets you mix these three oscillator types to create custom timbres. The default (70% sine, 30% triangle) provides warmth with subtle brightness.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                <span>What does the Detune/Chorus parameter do?</span>
+                <i class="ri-arrow-down-s-line"></i>
+            </div>
+            <div class="faq-answer">
+                <p>The Detune parameter slightly shifts the pitch of some oscillators, measured in cents (1 cent = 1/100th of a semitone).</p>
+                <p>When oscillators are slightly detuned from each other, they create slow "beating" patterns as their waves go in and out of phase. This creates a shimmering, chorus-like effect that:</p>
+                <p>- Makes the sound feel wider and more enveloping<br>
+                - Adds movement and life to a static tone<br>
+                - Approximates the natural variation of acoustic instruments<br>
+                - Can encourage entrainment to very low frequency oscillations</p>
+                <p>Higher detune values create faster, more noticeable beating. Lower values are subtle. Zero detune creates a "cleaner" but potentially more static sound.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cross-links -->
+    <div class="cross-links">
+        <a href="/science" class="cross-link-card">
+            <i class="ri-flask-line"></i>
+            <div class="link-content">
+                <h4>Science & Research</h4>
+                <p>The neuroscience of drone sounds</p>
+            </div>
+        </a>
+        <a href="/applications" class="cross-link-card">
+            <i class="ri-tools-line"></i>
+            <div class="link-content">
+                <h4>Practical Applications</h4>
+                <p>Real-world uses for drones</p>
+            </div>
+        </a>
+        <a href="/traditions" class="cross-link-card">
+            <i class="ri-ancient-gate-line"></i>
+            <div class="link-content">
+                <h4>Spiritual Traditions</h4>
+                <p>The contemplative history of drones</p>
+            </div>
+        </a>
+    </div>
+</div>
+{% endblock %}

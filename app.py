@@ -8,6 +8,22 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
+@app.route('/science')
+def science():
+    return render_template('science.html', active_page='science')
+
+@app.route('/applications')
+def applications():
+    return render_template('applications.html', active_page='applications')
+
+@app.route('/traditions')
+def traditions():
+    return render_template('traditions.html', active_page='traditions')
+
+@app.route('/faq')
+def faq():
+    return render_template('faq.html', active_page='faq')
+
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'),
@@ -26,6 +42,30 @@ def sitemap():
         <lastmod>{today}</lastmod>
         <priority>1.0</priority>
         <changefreq>weekly</changefreq>
+    </url>
+    <url>
+        <loc>https://omtones.com/science</loc>
+        <lastmod>{today}</lastmod>
+        <priority>0.9</priority>
+        <changefreq>monthly</changefreq>
+    </url>
+    <url>
+        <loc>https://omtones.com/applications</loc>
+        <lastmod>{today}</lastmod>
+        <priority>0.9</priority>
+        <changefreq>monthly</changefreq>
+    </url>
+    <url>
+        <loc>https://omtones.com/traditions</loc>
+        <lastmod>{today}</lastmod>
+        <priority>0.9</priority>
+        <changefreq>monthly</changefreq>
+    </url>
+    <url>
+        <loc>https://omtones.com/faq</loc>
+        <lastmod>{today}</lastmod>
+        <priority>0.9</priority>
+        <changefreq>monthly</changefreq>
     </url>
 </urlset>'''
 
