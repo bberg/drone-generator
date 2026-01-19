@@ -195,3 +195,31 @@ const tunings = {
 // Drift range: ±10-20% from center
 // Drift speed: 0.001 to 0.01 change per frame
 ```
+
+---
+
+## Phase 2 Review Findings (January 2026)
+
+### What's Working Well ✅
+- 8 drone presets (Meditation, Sleep, Yoga, etc.)
+- Root note selection across full range
+- Tuning system options (Equal Temperament, Just Intonation)
+- Evolution mode for organic variation
+- Multiple modal options (Dorian, Phrygian, Lydian)
+- A4 = 432 Hz / 440 Hz toggle
+- Volume and filter controls
+
+### Issues Found 🔧
+
+#### P0 - Critical
+- **Footer "Related Tools" incomplete**: Missing links to all network sites
+
+#### P1 - High Priority
+- No visual waveform/spectrum display
+- No preset save/load to localStorage
+- No recording/export feature
+
+#### P2 - Medium Priority
+- No nature sound layer
+- No guided breathing visual
+- No session timer with fade-out
