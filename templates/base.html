@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <!-- Google AdSense - Replace ca-pub-5035585454948958 with your publisher ID -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5035585454948958" crossorigin="anonymous"></script>
     {% block head_extra %}{% endblock %}
 </head>
 <body>
@@ -46,6 +48,20 @@
 
         {% block content %}{% endblock %}
 
+        <!-- Tasteful Ad Placement -->
+        <aside class="ad-section">
+            <div class="ad-container">
+                <!-- Google AdSense Ad Unit - Replace data-ad-slot with your ad unit ID -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-5035585454948958"
+                     data-ad-slot="XXXXXXXXXX"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
+        </aside>
+
         <footer class="site-footer">
             <div class="footer-content">
                 <div class="footer-brand">
@@ -69,7 +85,8 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>Part of the Audio Tools Network. For educational and personal use.</p>
+                <p>&copy; 2025 OmTones. Part of the Audio Tools Network.</p>
+                <p class="affiliate-disclosure">We may earn a commission from links on this site. <a href="#" class="disclosure-link">Learn more</a></p>
             </div>
         </footer>
     </div>
