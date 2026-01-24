@@ -29,6 +29,11 @@ def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'),
                              'favicon.svg', mimetype='image/svg+xml')
 
+@app.route('/ads.txt')
+def ads_txt():
+    return Response('google.com, pub-5035585454948958, DIRECT, f08c47fec0942fa0\n',
+                    mimetype='text/plain')
+
 # SEO: Sitemap
 @app.route('/sitemap.xml')
 def sitemap():
