@@ -1743,3 +1743,293 @@ body {
         grid-template-columns: 1fr;
     }
 }
+
+/* =====================================================
+   USE CASE PAGE STYLES (for-meditation, for-yoga, etc.)
+   ===================================================== */
+
+.use-case-container {
+    padding: 0;
+}
+
+.use-case-hero {
+    text-align: center;
+    padding: 3rem;
+    background: linear-gradient(135deg, var(--surface) 0%, var(--surface-raised) 100%);
+    border-bottom: 1px solid var(--border);
+}
+
+.use-case-hero h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+}
+
+.hero-subtitle {
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.7;
+}
+
+.cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    background: var(--primary);
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+}
+
+.cta-button:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+}
+
+.cta-button i {
+    font-size: 1.25rem;
+}
+
+.use-case-section {
+    padding: 3rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.use-case-section:last-of-type {
+    border-bottom: none;
+}
+
+.use-case-section h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+}
+
+.use-case-section p {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+    margin-bottom: 1.25rem;
+}
+
+.use-case-section p strong {
+    color: var(--text);
+    font-weight: 600;
+}
+
+/* Benefit Grid */
+.benefit-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.benefit-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+.benefit-card:hover {
+    border-color: var(--primary);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.benefit-card i {
+    font-size: 2.5rem;
+    color: var(--primary);
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.benefit-card h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+}
+
+.benefit-card p {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Noise Comparison */
+.noise-comparison {
+    margin-top: 2rem;
+}
+
+.noise-type {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    transition: all 0.2s ease;
+}
+
+.noise-type:hover {
+    border-color: var(--primary);
+}
+
+.noise-type:last-child {
+    margin-bottom: 0;
+}
+
+.noise-type h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.noise-type p {
+    margin-bottom: 0.75rem;
+}
+
+.noise-type p:last-child {
+    margin-bottom: 0;
+}
+
+.noise-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.noise-badge.pink {
+    background: rgba(236, 72, 153, 0.2);
+    color: #ec4899;
+}
+
+.noise-badge.brown {
+    background: rgba(180, 83, 9, 0.2);
+    color: #d97706;
+}
+
+.noise-badge.white {
+    background: rgba(255, 255, 255, 0.15);
+    color: #e5e7eb;
+}
+
+.noise-badge.theta {
+    background: rgba(99, 102, 241, 0.2);
+    color: #818cf8;
+}
+
+.noise-badge.alpha {
+    background: rgba(16, 185, 129, 0.2);
+    color: var(--primary);
+}
+
+.noise-badge.gamma {
+    background: rgba(245, 158, 11, 0.2);
+    color: #f59e0b;
+}
+
+/* Tips List */
+.tips-list {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0 0 0;
+}
+
+.tips-list li {
+    padding: 0.875rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border);
+}
+
+.tips-list li:last-child {
+    border-bottom: none;
+}
+
+.tips-list li::before {
+    content: ">";
+    position: absolute;
+    left: 0;
+    color: var(--primary);
+    font-weight: bold;
+}
+
+.tips-list li strong {
+    color: var(--text);
+    font-weight: 600;
+}
+
+/* CTA Section */
+.cta-section {
+    text-align: center;
+    padding: 3rem;
+    background: var(--surface-raised);
+    border-top: 1px solid var(--border);
+}
+
+.cta-section h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.75rem;
+}
+
+.cta-section p {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+}
+
+/* Responsive for use-case pages */
+@media (max-width: 768px) {
+    .use-case-hero {
+        padding: 2rem 1.5rem;
+    }
+
+    .use-case-hero h1 {
+        font-size: 1.75rem;
+    }
+
+    .use-case-section {
+        padding: 2rem 1.5rem;
+    }
+
+    .benefit-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .cta-section {
+        padding: 2rem 1.5rem;
+    }
+}
