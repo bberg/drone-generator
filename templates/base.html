@@ -18,8 +18,30 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
-    <!-- Google AdSense - Replace ca-pub-5035585454948958 with your publisher ID -->
+    <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5035585454948958" crossorigin="anonymous"></script>
+    <!-- WebApplication Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "OmTones",
+      "url": "https://omtones.com",
+      "description": "Free meditative drone generator creating sacred Om-like sounds for meditation, yoga, sound healing, and spiritual practice.",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript and Web Audio API",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "Audio Tools Network"
+      }
+    }
+    </script>
     {% block head_extra %}{% endblock %}
 </head>
 <body>
