@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Page Not Found - OmTones{% endblock %}
+
+{% block description %}The page you are looking for could not be found. Return to OmTones to create meditative Om-like drone sounds for meditation, sleep, and yoga.{% endblock %}
+
+{% block meta_extra %}
+<meta name="robots" content="noindex">
+{% endblock %}
+
+{% block content %}
+<main class="content-section" style="text-align: center; padding: 4rem 1rem;">
+    <h1 style="font-size: 3rem; margin-bottom: 0.5rem;">404</h1>
+    <h2 style="margin-top: 0;">This tone faded out</h2>
+    <p style="max-width: 38rem; margin: 1rem auto 2rem;">The page you are looking for could not be found. It may have moved, or the link may be incorrect. Let's get you back to a steady drone.</p>
+    <p style="margin-bottom: 2.5rem;">
+        <a href="/" class="nav-link" style="display: inline-block; padding: 0.75rem 1.5rem; border: 1px solid currentColor; border-radius: 8px;"><i class="ri-home-4-line"></i> Back to the Generator</a>
+    </p>
+    <div style="max-width: 40rem; margin: 0 auto; text-align: left;">
+        <h3>Popular pages</h3>
+        <ul>
+            <li><a href="/for-meditation">Drones for Meditation</a></li>
+            <li><a href="/for-sleep">Drones for Sleep</a></li>
+            <li><a href="/for-yoga">Drones for Yoga</a></li>
+            <li><a href="/for-sound-healing">Drones for Sound Healing</a></li>
+            <li><a href="/for-focus">Drones for Focus</a></li>
+            <li><a href="/faq">Frequently Asked Questions</a></li>
+        </ul>
+    </div>
+</main>
+{% endblock %}

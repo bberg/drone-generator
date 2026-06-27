@@ -45,6 +45,10 @@ def for_sound_healing():
 def for_focus():
     return render_template('for-focus.html', active_page='for-focus')
 
+@app.errorhandler(404)
+def not_found(e):
+    return render_template('404.html'), 404
+
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'),
@@ -72,55 +76,55 @@ def sitemap():
     <url>
         <loc>https://omtones.com/science</loc>
         <lastmod>{today}</lastmod>
-        <priority>0.9</priority>
+        <priority>0.7</priority>
         <changefreq>monthly</changefreq>
     </url>
     <url>
         <loc>https://omtones.com/applications</loc>
         <lastmod>{today}</lastmod>
-        <priority>0.9</priority>
+        <priority>0.7</priority>
         <changefreq>monthly</changefreq>
     </url>
     <url>
         <loc>https://omtones.com/traditions</loc>
         <lastmod>{today}</lastmod>
-        <priority>0.9</priority>
+        <priority>0.7</priority>
         <changefreq>monthly</changefreq>
     </url>
     <url>
         <loc>https://omtones.com/faq</loc>
         <lastmod>{today}</lastmod>
-        <priority>0.9</priority>
+        <priority>0.7</priority>
         <changefreq>monthly</changefreq>
     </url>
     <url>
         <loc>https://omtones.com/for-meditation</loc>
         <lastmod>{today}</lastmod>
-        <priority>0.9</priority>
+        <priority>0.8</priority>
         <changefreq>monthly</changefreq>
     </url>
     <url>
         <loc>https://omtones.com/for-sleep</loc>
         <lastmod>{today}</lastmod>
-        <priority>0.9</priority>
+        <priority>0.8</priority>
         <changefreq>monthly</changefreq>
     </url>
     <url>
         <loc>https://omtones.com/for-yoga</loc>
         <lastmod>{today}</lastmod>
-        <priority>0.9</priority>
+        <priority>0.8</priority>
         <changefreq>monthly</changefreq>
     </url>
     <url>
         <loc>https://omtones.com/for-sound-healing</loc>
         <lastmod>{today}</lastmod>
-        <priority>0.9</priority>
+        <priority>0.8</priority>
         <changefreq>monthly</changefreq>
     </url>
     <url>
         <loc>https://omtones.com/for-focus</loc>
         <lastmod>{today}</lastmod>
-        <priority>0.9</priority>
+        <priority>0.8</priority>
         <changefreq>monthly</changefreq>
     </url>
 </urlset>'''
