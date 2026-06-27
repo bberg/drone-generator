@@ -3,9 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}OmTones - Meditative Drone Sounds{% endblock %}</title>
-    <meta name="description" content="{% block description %}OmTones creates sacred Om-like drone sounds with layered oscillators for meditation, yoga, sound healing, and spiritual practice.{% endblock %}">
+    <title>{% block title %}OmTones - Free Om Drone Generator for Meditation & Sleep{% endblock %}</title>
+    <meta name="description" content="{% block description %}Play free Om-like drone tones for meditation, sleep, and yoga. Pick a root note, layer oscillators, set a sleep timer, and let evolving drones run as long as you like.{% endblock %}">
     {% block meta_extra %}{% endblock %}
+    <!-- Performance: preconnect to third-party origins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-CY9RPV2T0Q"></script>
     <script>
@@ -48,7 +52,7 @@
     <div class="container">
         <header class="page-header">
             <div class="header-content">
-                <h1><a href="/" style="color: inherit; text-decoration: none;">OmTones</a></h1>
+                <p class="site-title"><a href="/" style="color: inherit; text-decoration: none;">OmTones</a></p>
                 <p class="tagline">{% block tagline %}Sacred drone sounds for meditation, yoga, and spiritual practice{% endblock %}</p>
             </div>
         </header>
@@ -64,6 +68,16 @@
                     <a href="/applications" {% if active_page == 'applications' %}class="active"{% endif %}><i class="ri-tools-line"></i> Practical Applications</a>
                     <a href="/traditions" {% if active_page == 'traditions' %}class="active"{% endif %}><i class="ri-ancient-gate-line"></i> Spiritual Traditions</a>
                     <a href="/faq" {% if active_page == 'faq' %}class="active"{% endif %}><i class="ri-question-answer-line"></i> FAQ</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="#" class="nav-link dropdown-trigger {% if active_page in ['for-meditation', 'for-sleep', 'for-yoga', 'for-sound-healing', 'for-focus'] %}active{% endif %}"><i class="ri-compass-3-line"></i> Use Cases <i class="ri-arrow-down-s-line dropdown-arrow"></i></a>
+                <div class="dropdown-menu">
+                    <a href="/for-meditation" {% if active_page == 'for-meditation' %}class="active"{% endif %}><i class="ri-mental-health-line"></i> Drones for Meditation</a>
+                    <a href="/for-sleep" {% if active_page == 'for-sleep' %}class="active"{% endif %}><i class="ri-moon-line"></i> Drones for Sleep</a>
+                    <a href="/for-yoga" {% if active_page == 'for-yoga' %}class="active"{% endif %}><i class="ri-leaf-line"></i> Drones for Yoga</a>
+                    <a href="/for-sound-healing" {% if active_page == 'for-sound-healing' %}class="active"{% endif %}><i class="ri-disc-line"></i> Drones for Sound Healing</a>
+                    <a href="/for-focus" {% if active_page == 'for-focus' %}class="active"{% endif %}><i class="ri-focus-3-line"></i> Drones for Focus</a>
                 </div>
             </div>
         </nav>
@@ -97,13 +111,22 @@
                     <a href="/traditions">Spiritual Traditions</a>
                     <a href="/faq">FAQ</a>
                 </div>
+                <div class="footer-links">
+                    <h4>Use Cases</h4>
+                    <a href="/for-meditation">Drones for meditation</a>
+                    <a href="/for-sleep">Drones for sleep</a>
+                    <a href="/for-yoga">Drones for yoga</a>
+                    <a href="/for-sound-healing">Drones for sound healing</a>
+                    <a href="/for-focus">Drones for focus</a>
+                </div>
                 <div class="footer-related">
                     <h4>Audio Tools Network</h4>
-                    <a href="https://focushum.com" target="_blank">Noise Generator</a>
-                    <a href="https://tonesynth.com" target="_blank">Tone Generator</a>
-                    <a href="https://binauralhq.com" target="_blank">Binaural Beats</a>
-                    <a href="https://testtones.com" target="_blank">Frequency Generator</a>
-                    <a href="https://metronomely.com" target="_blank">Metronome</a>
+                    <a href="https://sirengenerator.com" target="_blank" rel="noopener">Siren Generator</a>
+                    <a href="https://tonesynth.com" target="_blank" rel="noopener">ToneSynth</a>
+                    <a href="https://focushum.com" target="_blank" rel="noopener">Focus Hum</a>
+                    <a href="https://binauralhq.com" target="_blank" rel="noopener">BinauralHQ</a>
+                    <a href="https://testtones.com" target="_blank" rel="noopener">TestTones</a>
+                    <a href="https://metronomely.com" target="_blank" rel="noopener">Metronomely</a>
                 </div>
             </div>
             <div class="footer-bottom">

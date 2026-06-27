@@ -65,7 +65,8 @@ body {
     background: var(--primary);
 }
 
-.header-content h1 {
+.header-content h1,
+.header-content .site-title {
     font-size: 2.5rem;
     font-weight: 800;
     color: var(--text);
@@ -1059,7 +1060,8 @@ body {
         padding: 2rem 1.5rem 1.5rem;
     }
 
-    .header-content h1 {
+    .header-content h1,
+.header-content .site-title {
         font-size: 1.75rem;
     }
 

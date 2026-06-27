@@ -29,6 +29,22 @@ def faq():
 def for_meditation():
     return render_template('for-meditation.html', active_page='for-meditation')
 
+@app.route('/for-sleep')
+def for_sleep():
+    return render_template('for-sleep.html', active_page='for-sleep')
+
+@app.route('/for-yoga')
+def for_yoga():
+    return render_template('for-yoga.html', active_page='for-yoga')
+
+@app.route('/for-sound-healing')
+def for_sound_healing():
+    return render_template('for-sound-healing.html', active_page='for-sound-healing')
+
+@app.route('/for-focus')
+def for_focus():
+    return render_template('for-focus.html', active_page='for-focus')
+
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'),
@@ -79,6 +95,30 @@ def sitemap():
     </url>
     <url>
         <loc>https://omtones.com/for-meditation</loc>
+        <lastmod>{today}</lastmod>
+        <priority>0.9</priority>
+        <changefreq>monthly</changefreq>
+    </url>
+    <url>
+        <loc>https://omtones.com/for-sleep</loc>
+        <lastmod>{today}</lastmod>
+        <priority>0.9</priority>
+        <changefreq>monthly</changefreq>
+    </url>
+    <url>
+        <loc>https://omtones.com/for-yoga</loc>
+        <lastmod>{today}</lastmod>
+        <priority>0.9</priority>
+        <changefreq>monthly</changefreq>
+    </url>
+    <url>
+        <loc>https://omtones.com/for-sound-healing</loc>
+        <lastmod>{today}</lastmod>
+        <priority>0.9</priority>
+        <changefreq>monthly</changefreq>
+    </url>
+    <url>
+        <loc>https://omtones.com/for-focus</loc>
         <lastmod>{today}</lastmod>
         <priority>0.9</priority>
         <changefreq>monthly</changefreq>
