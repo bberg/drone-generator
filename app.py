@@ -45,6 +45,22 @@ def for_sound_healing():
 def for_focus():
     return render_template('for-focus.html', active_page='for-focus')
 
+@app.route('/about')
+def about():
+    return render_template('about.html', active_page='about')
+
+@app.route('/contact')
+def contact():
+    return render_template('contact.html', active_page='contact')
+
+@app.route('/privacy')
+def privacy():
+    return render_template('privacy.html', active_page='privacy')
+
+@app.route('/terms')
+def terms():
+    return render_template('terms.html', active_page='terms')
+
 @app.errorhandler(404)
 def not_found(e):
     return render_template('404.html'), 404
@@ -125,6 +141,12 @@ def sitemap():
         <loc>https://omtones.com/for-focus</loc>
         <lastmod>{today}</lastmod>
         <priority>0.8</priority>
+        <changefreq>monthly</changefreq>
+    </url>
+    <url>
+        <loc>https://omtones.com/about</loc>
+        <lastmod>{today}</lastmod>
+        <priority>0.5</priority>
         <changefreq>monthly</changefreq>
     </url>
 </urlset>'''

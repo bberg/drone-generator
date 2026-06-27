@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}About OmTones - Why We Built a Free Om Drone Generator{% endblock %}
+
+{% block description %}OmTones is a free, browser-based generator of evolving Om-like drone tones for meditation, yoga, and sleep. Learn who it is for and how it works.{% endblock %}
+
+{% block meta_extra %}
+<link rel="canonical" href="https://omtones.com/about">
+{% endblock %}
+
+{% block tagline %}About OmTones{% endblock %}
+
+{% block content %}
+<div class="content-page">
+    <article class="content-article">
+        <h1>About OmTones</h1>
+
+        <p>OmTones started from a simple frustration: most "Om" and drone tracks online are
+        fixed recordings that loop. After ten minutes your ear learns the loop, the seam becomes
+        obvious, and the sound that was meant to disappear into the background starts demanding
+        attention instead. We wanted a drone that could run for an hour, or all night, without
+        ever repeating itself the same way twice.</p>
+
+        <p>So OmTones generates its sound live, in your browser, using the Web Audio API. Nothing
+        is pre-recorded. You choose a root note, layer sine, triangle, and sawtooth oscillators,
+        and the tones are synthesized in real time. Turn on <strong>Evolution Mode</strong> and the
+        filter, modulation, and detune slowly drift within musical ranges, so the drone stays
+        gently alive rather than frozen. It is a small nod to Brian Eno's idea of music that is
+        "as ignorable as it is interesting."</p>
+
+        <h2>Who it is for</h2>
+        <p>OmTones is built for people who sit with sound: meditators who want a steady tone to
+        rest attention on, yoga teachers holding one drone through a whole class, sound-bath
+        practitioners layering it under bowls and gongs, and anyone who sleeps or works better
+        with a continuous, non-jarring tone in the room. You can match the drone to your own
+        humming pitch, drop it low for grounding, or raise it for a more awake, focused feel.</p>
+
+        <h2>About 432 Hz and just intonation</h2>
+        <p>We include alternative tunings like 432 Hz and just intonation, and frequency options
+        such as the Solfeggio set, because many listeners genuinely prefer how they sound. We want
+        to be honest about why: these are offered as <strong>matters of taste, not proven medical
+        effects</strong>. The popular claims about 432 Hz or specific "healing frequencies" repairing
+        DNA are not supported by solid evidence. What is real is that a calm, sustained tone can help
+        you settle, and that personal preference for one tuning over another is completely valid.
+        Use whichever sounds best to you.</p>
+
+        <h2>Free, private, no sign-up</h2>
+        <p>OmTones is free and runs entirely in your browser with no account and no installation.
+        Because the audio is generated locally, your listening never leaves your device. It is part
+        of the <strong>Audio Tools Network</strong>, a small family of focused audio tools that also
+        includes <a href="https://binauralhq.com" target="_blank" rel="noopener">BinauralHQ</a> for
+        binaural beats and <a href="https://focushum.com" target="_blank" rel="noopener">Focus Hum</a>
+        for steady background noise. If you have feedback or a feature request, we would love to hear
+        it at <a href="mailto:contact@omtones.com">contact@omtones.com</a>.</p>
+    </article>
+</div>
+{% endblock %}
