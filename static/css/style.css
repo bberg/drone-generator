@@ -2052,3 +2052,183 @@ body {
 .network-card i{color:var(--primary);font-size:1.4rem;}
 .nt-name{font-weight:700;color:var(--text);}
 .nt-blurb{font-size:.8125rem;color:var(--text-secondary);}
+
+
+/* === DESIGN SYSTEM V2 === */
+/* ============================================================
+   Audio Tools Network — Design System v2 — SITE: OmTones
+   "The Resonance" — warm, grounded, reverent, unhurried.
+   Dawn-light gradient (marigold → ember → dusk) on a
+   sandalwood-dark field. Fraunces soft-serif wordmark + Inter.
+   Strategy: (1) per-site PALETTE via token overrides; (2) shared
+   ELEVATION layer = world-class bar. CSS-only, injected over live site.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap');
+
+/* ---- OmTones palette: saffron / ember / terracotta on sandalwood ---- */
+:root {
+  --primary: #E5A23C;
+  --primary-dark: #C97B2C;
+  --primary-light: #F7DCA6;
+  --accent: #D2622E;
+  --bg: #15100A;
+  --surface: #211913;
+  --surface-raised: #2C2017;
+  --text: #F5ECDD;
+  --text-secondary: #C9B79C;
+  --text-muted: #8E7C63;
+  --border: #352819;
+  --border-focus: #4A3722;
+  --grad: linear-gradient(135deg, #F4BC55 0%, #E0793A 52%, #7E3B4A 112%);
+  --glow: 0 0 0 1px rgba(229,162,60,.16), 0 22px 60px -18px rgba(210,98,46,.42);
+  --shadow-lg: 0 28px 70px -22px rgba(0,0,0,.82), 0 10px 28px -14px rgba(0,0,0,.6);
+}
+
+/* ---- Ambient background: dawn light through a temple window ---- */
+body {
+  background:
+    radial-gradient(1150px 680px at 50% -12%, rgba(244,188,85,.20), transparent 60%),
+    radial-gradient(820px 560px at 88% 4%, rgba(210,98,46,.16), transparent 58%),
+    radial-gradient(760px 600px at 8% 22%, rgba(126,59,74,.16), transparent 60%),
+    radial-gradient(900px 700px at 50% 122%, rgba(229,162,60,.08), transparent 62%),
+    var(--bg) !important;
+  background-attachment: fixed;
+  color: var(--text);
+}
+
+/* ---- Container: warm glassy hairline with soft ember glow ---- */
+.container {
+  border: 1px solid rgba(247,220,166,.07);
+  border-radius: 24px;
+  box-shadow: var(--shadow-lg), var(--glow);
+  background:
+    linear-gradient(180deg, rgba(247,220,166,.035), rgba(247,220,166,0) 280px),
+    var(--surface);
+}
+
+/* ---- Hero: Fraunces soft-serif wordmark, gradient-clip ---- */
+.page-header { padding: 3.75rem 3rem 2.5rem; }
+.header-content h1,
+.header-content .site-title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-optical-sizing: auto;
+  font-size: clamp(2.7rem, 5.4vw, 3.9rem);
+  font-weight: 600;
+  letter-spacing: -0.018em;
+  line-height: 1.04;
+  /* wordmark-specific dawn gradient: keeps the tail legible (ember,
+     not deep dusk) while the body bg still carries the maroon dusk */
+  background: linear-gradient(118deg, #F8C766 0%, #EC9544 46%, #D9663A 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.tagline {
+  font-family: 'Fraunces', Georgia, serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.12rem;
+  color: var(--text-secondary);
+  max-width: 52ch;
+  margin: 0.9rem auto 0;
+  line-height: 1.55;
+}
+.page-header::after {
+  height: 3px;
+  background: var(--grad);
+  opacity: .92;
+}
+
+/* ---- Section headings also in Fraunces for ceremonial warmth ---- */
+h2, h3 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+
+/* ---- Badges: warm glass pills ---- */
+.header-badge {
+  background: rgba(247,220,166,.04);
+  border: 1px solid rgba(247,220,166,.10);
+  border-radius: 2rem;
+  backdrop-filter: blur(6px);
+  color: var(--text-secondary);
+  transition: transform .22s ease, border-color .22s ease;
+}
+.header-badge:hover { transform: translateY(-1px); border-color: rgba(229,162,60,.5); }
+.header-badge i { color: var(--accent); }
+
+/* ---- Nav: animated dawn underline ---- */
+.mini-nav { background: rgba(33,25,19,.6); }
+.nav-link { transition: color .2s ease, background .2s ease; }
+.nav-link::after {
+  content: ''; position: absolute; left: 1.25rem; right: 1.25rem; bottom: 0;
+  height: 2px; background: var(--grad); transform: scaleX(0); transform-origin: left;
+  transition: transform .24s ease;
+}
+.nav-link:hover { color: var(--text); background: rgba(229,162,60,.08); }
+.nav-link:hover::after { transform: scaleX(1); }
+
+/* ---- Primary actions: the soft-gold Begin orb / gradient pill ---- */
+button.btn-primary, .btn-primary, .play-btn, .play-button, button[class*="play"],
+.generate-btn, .primary-btn, .btn--primary, .start-btn, button[class*="start"] {
+  background: var(--grad) !important;
+  border: none !important; color: #2A140A !important; font-weight: 700 !important;
+  border-radius: 999px !important;
+  box-shadow: 0 12px 34px -8px rgba(224,121,58,.6), inset 0 1px 0 rgba(255,255,255,.32) !important;
+  transition: transform .18s ease, box-shadow .18s ease, filter .18s ease !important;
+}
+button.btn-primary:hover, .btn-primary:hover, .play-btn:hover, .play-button:hover,
+button[class*="play"]:hover, .generate-btn:hover, .primary-btn:hover, .btn--primary:hover,
+.start-btn:hover, button[class*="start"]:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 18px 46px -8px rgba(224,121,58,.78), 0 0 30px -6px rgba(244,188,85,.4), inset 0 1px 0 rgba(255,255,255,.42) !important;
+  filter: saturate(1.06) brightness(1.03) !important;
+}
+
+/* ---- Inputs / sliders / cards: tuned to warm system ---- */
+input, select, textarea {
+  border-radius: 12px !important;
+  background: var(--surface-raised) !important;
+  border-color: var(--border) !important;
+  color: var(--text) !important;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--primary) !important;
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(229,162,60,.18) !important;
+}
+input[type="range"] { accent-color: var(--primary); }
+
+.preset-btn, .card, .panel, .tool-card, .feature-card, .network-card {
+  border-radius: 16px !important;
+  transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease;
+}
+.network-card:hover, .tool-card:hover, .card:hover, .feature-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(229,162,60,.42);
+  box-shadow: 0 18px 40px -16px rgba(210,98,46,.5);
+}
+
+/* ---- Preset / secondary buttons: glassy warm ---- */
+.preset-btn {
+  background: rgba(247,220,166,.04) !important;
+  border: 1px solid rgba(247,220,166,.10) !important;
+  color: var(--text-secondary) !important;
+}
+.preset-btn:hover {
+  border-color: rgba(229,162,60,.45) !important;
+  color: var(--text) !important;
+}
+.preset-btn.active, .preset-btn[aria-pressed="true"] {
+  background: rgba(229,162,60,.14) !important;
+  border-color: var(--primary) !important;
+  color: var(--primary-light) !important;
+}
+
+/* ---- Links + selection ---- */
+a { color: var(--primary-light); }
+a:hover { color: #FFFFFF; }
+::selection { background: rgba(229,162,60,.38); color: #fff; }
