@@ -518,5 +518,59 @@
       });
     })();
     </script>
+
+<script>
+/* floating-play */
+/* Floating Play — a small always-available control that proxies the tool's real
+   primary play/start button and mirrors its state. Self-contained; no tool-specific
+   wiring. Appears only when the real control is scrolled out of view. */
+(function () {
+  function findPlay() {
+    var els = Array.prototype.slice.call(document.querySelectorAll('button, a.btn, [role="button"]'));
+    for (var i = 0; i < els.length; i++) {
+      var el = els[i], t = (el.textContent || '').trim();
+      if (/^(▶|►)?\s*(play|start)\b/i.test(t) && el.offsetParent !== null) return el;
+    }
+    return null;
+  }
+  function init() {
+    var real = findPlay();
+    if (!real) return;
+    var fab = document.createElement('button');
+    fab.id = 'floating-play';
+    fab.type = 'button';
+    fab.innerHTML = '<span class="fp-icon">▶</span><span class="fp-label">Play</span>';
+    document.body.appendChild(fab);
+
+    function playing() {
+      var t = (real.textContent || '').trim().toLowerCase();
+      return /\b(stop|pause|playing|stopping)\b/.test(t) ||
+             real.classList.contains('playing') || real.getAttribute('aria-pressed') === 'true';
+    }
+    function sync() {
+      var p = playing();
+      fab.querySelector('.fp-icon').textContent = p ? '⏸' : '▶';
+      fab.querySelector('.fp-label').textContent = p ? 'Stop' : 'Play';
+      fab.setAttribute('aria-label', p ? 'Stop playback' : 'Play');
+      fab.classList.toggle('is-playing', p);
+    }
+    fab.addEventListener('click', function () { real.click(); setTimeout(sync, 60); });
+    try { new MutationObserver(sync).observe(real, { subtree: true, childList: true, characterData: true, attributes: true }); } catch (e) {}
+    setInterval(sync, 700);
+    sync();
+
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        fab.classList.toggle('visible', !entries[0].isIntersecting);
+      }, { threshold: 0.15 }).observe(real);
+    } else {
+      fab.classList.add('visible');
+    }
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+
+</script>
 </body>
 </html>
